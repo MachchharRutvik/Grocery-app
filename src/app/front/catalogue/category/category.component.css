@@ -1,0 +1,85 @@
+.card{
+    width: 15rem;
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0px;
+    border-radius: 0;
+}
+.price{
+    text-decoration: line-through;
+    font-weight: 100;
+    color:#ADADAD;
+
+}
+.discountPrice{
+    color:#3BB77E;
+    font-weight: 500;
+}
+.category{
+    font-weight: 100;
+    color:#ADADAD;
+    
+}
+.addToCart{
+    margin-left: 35px;
+    width: 90px;
+    height: 34px;
+    border-radius: 0;
+background-color: #DEF9EC;;
+color:#3BB77E;
+font-size: 14px
+;
+}
+.image{
+    width: 224px;
+    height: 144px;
+}
+.storeName{
+    font-size: 12px;
+}
+.card-body{
+    display: flex;
+    flex-direction: column;
+}
+.center{
+   text-align: center;
+   background-image: url("../../../../assets/categoryFruits.png");
+   padding: 70px 0px;
+}
+.icon{
+    text-align: right;
+    margin-right: 20px;
+    font-size: large;
+    position: relative;
+}
+.container{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+}
+.options{
+    width: 200px;
+    background-color: #F2F3F2;
+    padding: 10px;
+    position: absolute;
+    bottom: 300px;
+    right: 45px;
+  display: none;
+  border-radius: 10px;
+  z-index: 5;
+}
+li{
+list-style-type: none;}
+.option{
+    font-size: 12px;
+    text-align: left;
+  }
+  ul,p{
+    margin: 0;
+    padding: 0;
+  
+  }
+  
+  input[type=checkbox]{
+    margin-right: 5px;
+    
+  }

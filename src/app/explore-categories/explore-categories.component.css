@@ -1,0 +1,21 @@
+.headings{
+    display: flex;
+    justify-content: space-between;
+}
+a{
+    text-decoration: none;
+    margin: 13px;
+    color: black;
+}
+.box{
+margin-left: 25PX;
+height: 184px;
+border: 1px solid gray;
+width: 153px;
+text-align: center;
+}
+.Items-container{
+    display: flex;
+    flex-direction: row;
+
+}
