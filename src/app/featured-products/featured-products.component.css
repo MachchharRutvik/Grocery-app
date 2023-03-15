@@ -62,3 +62,46 @@ swiper-slide {
   justify-content: center;
   align-items: center;
 }
+.card{
+  width: 15rem;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0px;
+  border-radius: 0;
+}
+.price{
+  text-decoration: line-through;
+  font-weight: 100;
+  color:#ADADAD;
+
+}
+.discountPrice{
+  color:#3BB77E;
+  font-weight: 500;
+}
+.category{
+  font-weight: 100;
+  color:#ADADAD;
+  
+}
+.addToCart{
+  margin-left: 35px;
+  width: 90px;
+  height: 34px;
+  border-radius: 0;
+background-color: #DEF9EC;;
+color:#3BB77E;
+font-size: 14px
+;
+}
+.image{
+  width: 224px;
+  height: 144px;
+}
+.storeName{
+  font-size: 12px;
+}
+.card-body{
+  display: flex;
+  flex-direction: column;
+}

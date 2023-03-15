@@ -10,6 +10,7 @@ export class ProductsService {
   categoriesName=[
     "All","Vegetables","Fruits","Coffee & teas","Meat"
   ]
+  
   groceryList:Grocery[] = [
     {
       id: 1,
@@ -143,17 +144,7 @@ export class ProductsService {
         category: "Fruits",
         imageUrl:"../assets/peach.png"
       },
-      {
-        id: 13,
-        grocery_name: "Beef Ribeye Steak",
-        store: "Meat King",
-        price: 12.99,
-        discountPrice: 9.99,
-        rating: 4.8,
-        quantity: "1 lb",
-        category: "Meat",
-        imageUrl:"../assets/peach.png"
-      },
+     
       {
         id: 14,
         grocery_name: "Asparagus",
@@ -232,4 +223,9 @@ export class ProductsService {
         imageUrl:"../assets/peach.png"
       }
     ];
+    uniqueCategories =this.groceryList.filter((value,index,self)=>{
+      return index === self.findIndex((p) => {
+        return p.category === value.category;
+      });
+    });
 }

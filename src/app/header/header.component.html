@@ -1,4 +1,4 @@
-<nav class="navbar ">
+<!-- <nav class="navbar ">
   <div class="container ">
     <a class="navbar-brand" href="#">
       <img src="../assets/logo.png" alt="Bootstrap" width="39" height="39">
@@ -8,9 +8,8 @@
     <form class="d-flex search" role="search">
       <select class="form-select rightBorder" aria-label="Default select example">
         <option selected>All Categories</option>
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
+        <option value="option1" *ngFor="let i of uniqueCategories">{{i.category}}</option>
+       
       </select>
 
       <input class="form-control me-2 leftBorder" type="search" placeholder="Search" aria-label="Search">
@@ -20,9 +19,9 @@
 
     <div class="cart">
       <div class="left-cart">
-        <img src="../assets/li_shopping-cart.png" alt="">
+        <img src="../assets/li_shopping-cart.png" alt=""> -->
         <!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">1</span> -->
-      </div>
+      <!-- </div>
       <div><select name="myCart" id="myCart" class="border-none">
         <option value="myCart" selected class="border-none">My cart</option>
       </select><br>
@@ -32,16 +31,49 @@
       <span>Pritey Mehta</span>
     </div>
   </div>
-
-  
-
 </nav>
 <hr style="color: #3BB77E">
 <nav>
   <div class="categories-btn">
-    <button class="btn btn-success categories-btn">Browse all categories</button>
+    <a routerLink="/categories/All"><button class="btn btn-success categories-btn">Browse all categories</button></a>
     <i class="fa fa-phone" aria-hidden="true">1233-7777</i>
     <span class="text-24">24/7 support center</span>
   
+  </div>
+</nav> -->
+
+
+<nav class="main">
+  <div class="container d-flex">
+    <div class="logoPart">
+      <a class="navbar-brand" href="#">
+        <img src="../assets/logo.png" alt="Bootstrap" width="32" height="35">
+        <img src="../assets/cybercomcreation.png" alt="Bootstrap" width="196" height="44">
+      </a>
+    </div>
+    <div class="searchPart d-flex ">
+      <select name="categories" id="" class="form-select border border-end-0 rounded-0 categoriesPart">
+        <option value="">All categories</option>
+        <option value="option1" *ngFor="let i of uniqueCategories">{{i.category}}</option>
+      </select>
+      <input  class="form-control border border-start-0 rounded-0 search-input"type="text" name="search" id="" placeholder="search for items">
+      <button class="btn searchBtn "><i class="fa fa-search"></i></button>
+    </div>
+    <div class="cartPart d-flex ">
+    <div>
+      <i class="fa fa-shopping-cart cart" style="width: 24px;height: 24px;"></i>
+      <span class="cartNumber">1</span>
+    </div>
+      <div class="d-flex flex-column">
+       <select name="" id="" style="font-size: 12px;">
+        <option value="myCart" selected style="font-size: 12px;">My cart</option>
+       </select>
+        <span style="font-size: 12px; color: #3BB77E;">{{21|currency}}</span>
+      </div>
+    </div>
+    <div class="userPart">
+      <span>Pritey Mehta </span>
+      <i class="fa fa-regular fa-angle-down"></i>
+    </div>
   </div>
 </nav>

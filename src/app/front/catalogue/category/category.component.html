@@ -1,15 +1,15 @@
 <div class="container-fluid">
     <div class="container-fluid center">
-        <h1 >{{groceryCategory}}</h1>
+        <h1>{{groceryCategory}}</h1>
     </div>
     <div class="icon" (click)="onDisplay()">
-        <i class="fa fa-solid fa-filter" ></i>
+        <i class="fa fa-solid fa-filter"></i>
     </div>
     <div class="options" [style.display]="isChanged ? 'block' : 'none'">
         <p style="text-align: center;">Filter option</p>
-        <div class="option" *ngFor="let i of products">
+        <div class="option" *ngFor="let i of uniqueStores">
             <ul>
-                <li><input type="checkbox" name="brand" id="" value="Amul" >{{i.store}}</li>
+                <li><input type="checkbox" name="brand" id="" value="Amul">{{i.store}}</li>
             </ul>
         </div>
 
@@ -25,7 +25,6 @@
                 <div>
                     <span class="discountPrice card-text">{{product.discountPrice | currency}}</span>
                     <span class="price card-text">{{product.price | currency}}</span>
-
                     <button class="btn  addToCart "><i class="fa fa-shopping-cart "></i>Add</button>
                 </div>
             </div>

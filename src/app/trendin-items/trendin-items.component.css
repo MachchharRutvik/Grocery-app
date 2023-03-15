@@ -11,6 +11,9 @@
 .price{
     text-decoration: line-through;
     margin-left: 5px;
+    font-weight: 100;
+    color: #ADADAD;
+
 }
 .discount-price{
     color: #3BB77E;
