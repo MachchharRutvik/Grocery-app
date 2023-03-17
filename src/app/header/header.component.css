@@ -29,3 +29,15 @@ border-radius: 50%;
 .main{
     margin-top: 2rem;
 }
+.fa-phone{
+    font-size: 18px;
+     color: #3BB77E;
+}
+.text{
+    font-size: 14px;
+    margin-left: 0.8rem;
+}
+.rightPart{
+    align-items: center;
+    
+}

@@ -8,10 +8,10 @@ const routes: Routes = [
     path:'',component:HomeComponent
   },
   {
-    path:'categories',component:CategoryComponent
+    path:'categories/:category',component:CategoryComponent
   },
   {
-    path:'categories/:category',component:CategoryComponent
+    path:'search/:category/:value',component:CategoryComponent
   }
 ];
 

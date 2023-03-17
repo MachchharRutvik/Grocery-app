@@ -223,9 +223,65 @@ export class ProductsService {
         imageUrl:"../assets/peach.png"
       }
     ];
-    uniqueCategories =this.groceryList.filter((value,index,self)=>{
-      return index === self.findIndex((p) => {
-        return p.category === value.category;
+    // uniqueCategories =this.groceryList.filter((value,index,self)=>{
+    //   return index === self.findIndex((p) => {
+    //     return p.category === value.category;
+    //   });
+    // });
+    categories:Set<string> = new Set<string>(['All']);
+    stores:Set<string> = new Set<string>();
+
+    getGrocery(){
+      return this.groceryList;
+    }
+
+    getCategories():string[] {
+      this.groceryList.forEach((grocery:Grocery)=>{
+        this.categories.add(grocery.category);
+      })
+      return Array.from(this.categories);
+    }
+
+    getProductByCategories(category:string){
+      if(category && category != 'All'){
+      return this.groceryList.filter(product => product.category === category)
+    }
+      return this.groceryList;
+    }
+    getProductsByStores(category:string){
+      if(category == 'All'){
+        this.groceryList.forEach((grocery)=>{
+          this.stores.add(grocery.store);
+        })
+      }
+      else{
+        this.groceryList.forEach((grocery:Grocery)=>{
+          if(grocery.category === category){
+            this.stores.add(grocery.store);
+          }
+        })
+      }
+      return Array.from(this.stores);
+    
+    }
+    getStores(){
+      this.groceryList.forEach((store)=>{
+        this.stores.add(store.store);
+      })
+      return Array.from(this.stores);
+    }
+    getProductsBySearch(search: string){
+      let searchItems = this.groceryList.filter((product) => {
+         return product.grocery_name.toLowerCase().indexOf(search.toLowerCase())!=-1;
       });
-    });
+      console.log(searchItems);
+      return searchItems;
+    }
+    getProductsBySearchAndCategory(category: string,word: string){
+      let productsByCategory = this.getProductByCategories(category);
+      let searchWordProducts = productsByCategory.filter((product)=>{
+        return product.grocery_name.toLowerCase().indexOf(word.toLowerCase())!=-1;
+      })
+      return searchWordProducts;
+    }
 }

@@ -17,6 +17,7 @@ import { TrendinItemsComponent } from './trendin-items/trendin-items.component';
 import { HomeComponent } from './home/home.component';
 import { CommonModule } from '@angular/common';
 import { CatalogueModule } from './front/catalogue/catalogue.module';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,7 @@ import { CatalogueModule } from './front/catalogue/catalogue.module';
   imports: [
     BrowserModule,
     AppRoutingModule,CommonModule,
-    CatalogueModule
+    CatalogueModule,FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

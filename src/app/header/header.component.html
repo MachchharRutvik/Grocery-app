@@ -52,14 +52,16 @@
       </a>
     </div>
     <div class="searchPart d-flex ">
-      <select name="categories" id="" class="form-select border border-end-0 rounded-0 categoriesPart">
-        <option value="">All categories</option>
-        <option value="option1" *ngFor="let i of uniqueCategories">{{i.category}}</option>
+      <select name="categories"  (change)="onSelectCategory($event)" class="form-select border border-end-0 rounded-0 categoriesPart">
+        <option value="">Categories</option>
+        <option value="option1" *ngFor="let i of categories" value = {{i}}>{{i}}</option>
       </select>
-      <input  class="form-control border border-start-0 rounded-0 search-input"type="text" name="search" id="" placeholder="search for items">
+      <form (submit)="onSubmit($event)"  class="d-flex">
+      <input  [(ngModel)] = "searchItem" class="form-control border border-start-0 rounded-0 search-input"type="text" name="search" id="" placeholder="search for items" >
       <button class="btn searchBtn "><i class="fa fa-search"></i></button>
+    </form>
     </div>
-    <div class="cartPart d-flex ">
+    <div class="cartPart d-flex">
     <div>
       <i class="fa fa-shopping-cart cart" style="width: 24px;height: 24px;"></i>
       <span class="cartNumber">1</span>
@@ -74,6 +76,14 @@
     <div class="userPart">
       <span>Pritey Mehta </span>
       <i class="fa fa-regular fa-angle-down"></i>
+    </div>
+  </div>
+  <div class="secondRow d-flex container mt-3 mb-3">
+    <div class="leftPart "> <a routerLink="categories/All"><button class="btn btn-success categories-btn rounded-0">Browse all categories</button></a>
+    </div>
+    <div class="rightPart d-flex ">
+      <i class="fa fa-phone" aria-hidden="true" >1233-7777</i>
+    <span class="text">24/7 support center</span>
     </div>
   </div>
 </nav>

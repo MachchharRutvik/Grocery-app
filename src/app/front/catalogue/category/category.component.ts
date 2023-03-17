@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Grocery } from 'src/app/groceryInterface';
 import { ProductsService } from 'src/app/products.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-category',
@@ -9,36 +10,89 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./category.component.css'],
 })
 export class CategoryComponent implements OnInit {
-  products: any =this.productService.groceryList;
-  groceryCategory: any;
+  products: Grocery[] = this.productService.groceryList;
+  groceryCategory: string | undefined;
+  stores: String[] = [];
+  searchWord:string | undefined;
+  checkedStores: string[] = [];
+  isNull = false;
   constructor(
     private productService: ProductsService,
     private route: ActivatedRoute
-  ) {}
-
+  ) { }
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this.groceryCategory = this.route.snapshot.paramMap.get('category');
+    this.route.params.subscribe((params) => {
+      this.groceryCategory = params['category'];
+      this.searchWord = params['value'];
+
+
+
+
+      if(this.searchWord && this.groceryCategory){
+        this.getSearchCategoryData(this.groceryCategory,this.searchWord)
+      }
+      else if (this.groceryCategory) {
+        this.products = this.productService.getProductByCategories(this.groceryCategory);
+        this.stores = this.productService.getProductsByStores(this.groceryCategory);
+        // console.log(this.stores, this.groceryCategory,this.searchWord);
+      }
+      // if(this.searchWord){
+      //   this.products = this.productService.getProductsBySearch(this.searchWord);
+      //   if(this.products.length==0){
+      //     this.isNull=true; 
+      //   }else{
+      //     this.isNull=false;
+      //   }
+      // }
+     
+
+    });
   }
-  isChanged = false;
-  onDisplay() {
-    this.isChanged = !this.isChanged;
-  }
-  get filteredProducts() {
-    if (this.groceryCategory == 'All') {
-      return this.products;
-    } else {
-      return this.products.filter(
-        (product: { category: any; }) => product.category === this.groceryCategory
-      );
+getSearchCategoryData(category: string,word: string){
+  this.products = this.productService.getProductsBySearchAndCategory(category,word);
+  const duplicateStores = this.productService.getProductsByStores(category);
+  this.stores = this.products.map(product =>  product.store)
+}
+
+
+
+  onChecked(event: any) {
+    const store: string = event.target.value;
+    if (event.target.checked) {
+      this.checkedStores.push(store);
+      console.log(this.checkedStores);
+    }
+    else {
+      const id = this.checkedStores.indexOf(store);
+      if (id != -1) {
+        this.checkedStores.splice(id, 1);
+      }
+    }
+    console.log(this.checkedStores)
+    if(this.groceryCategory){
+    console.log(this.groceryCategory);
+     this.getFilteredData(this.groceryCategory);
     }
   }
-  uniqueStores = this.products.filter((value: { store: any; }, index: any, self: any[]) => {
-    return (
-      index ===
-      self.findIndex((p: { store: any; }) => {
-        return p.store === value.store;
-      })
-    );
-  });
+  
+
+getFilteredData(value: string){
+  const duplicateProducts = this.productService.getProductByCategories(value);
+  if (this.checkedStores && this.checkedStores.length > 0) {
+    this.products = duplicateProducts.filter((product) => {
+     return this.checkedStores.includes(product.store)
+  
+    })
+  }
+  else {
+    this.products = this.productService.getProductByCategories(value);
+  }
+
+}
+isClicked = false;
+onDisplay(){
+  this.isClicked = !this.isClicked;
+}
+
 }

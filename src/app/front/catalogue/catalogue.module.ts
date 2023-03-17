@@ -5,6 +5,7 @@ import { CatalogueRoutingModule } from './catalogue-routing.module';
 import { CategoryComponent } from './category/category.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
   ],
   imports: [
     CommonModule,
-    CatalogueRoutingModule
+    CatalogueRoutingModule,
+    FormsModule
   ],exports:[
     CategoryComponent
   ]
