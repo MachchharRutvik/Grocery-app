@@ -284,4 +284,13 @@ export class ProductsService {
       })
       return searchWordProducts;
     }
+    getProductById(id: number){
+      console.log(id);
+     const product =  this.groceryList.find((p) =>{ 
+      // console.log('p',p);
+      // console.log(typeof(id));
+       return p.id === id;
+    })
+    return product;
+    }
 }

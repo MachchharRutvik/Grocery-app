@@ -10,22 +10,25 @@
     <div class="swiper-wrapper">
         <div class="swiper-slide" *ngFor="let product of products">
             <div class="card" >
+                <a [routerLink]="['featured-products/product-details/',product.category,product.grocery_name,product.id] ">
                 <img src="{{product.imageUrl}}" class="card-img-top image" alt="">
+            </a>
                 <div class="card-body">
                     <span class="card-text category">{{product.category}}</span>
                     <h4>{{product.grocery_name}}</h4>
                     <span>☆☆☆☆☆(4)</span>
                     <span class="card-text storeName">By {{product.store}}</span>
+                
                     <div>
                         <span class="discountPrice card-text">{{product.discountPrice | currency}}</span>
                         <span class="price card-text">{{product.price | currency}}</span>
     
-                        <button class="btn  addToCart "><i class="fa fa-shopping-cart "></i>Add</button>
+                        <button class="btn addToCart" (click)="addToCart(product.id)"><i class="fa fa-shopping-cart "></i>Add</button>
                     </div>
                 </div>
             </div>
-        </div>
        
+        </div>
         <!-- add more product cards here -->
     </div>
     <div class="swiper-pagination"></div>

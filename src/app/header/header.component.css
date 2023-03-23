@@ -41,3 +41,7 @@ border-radius: 50%;
     align-items: center;
     
 }
+.cartLogo{
+    text-decoration: none;
+    color: black;
+}

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 
 import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
@@ -18,6 +19,7 @@ import { HomeComponent } from './home/home.component';
 import { CommonModule } from '@angular/common';
 import { CatalogueModule } from './front/catalogue/catalogue.module';
 import { FormsModule } from '@angular/forms';
+import { FrontModule } from './front/front.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +33,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,CommonModule,
-    CatalogueModule,FormsModule
+    CatalogueModule,FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

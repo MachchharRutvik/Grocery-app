@@ -37,15 +37,6 @@ export class CategoryComponent implements OnInit {
         this.stores = this.productService.getProductsByStores(this.groceryCategory);
         // console.log(this.stores, this.groceryCategory,this.searchWord);
       }
-      // if(this.searchWord){
-      //   this.products = this.productService.getProductsBySearch(this.searchWord);
-      //   if(this.products.length==0){
-      //     this.isNull=true; 
-      //   }else{
-      //     this.isNull=false;
-      //   }
-      // }
-     
 
     });
   }

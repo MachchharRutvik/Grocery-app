@@ -5,6 +5,7 @@ import { UserRoutingModule } from './user-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { MyCartComponent } from './my-cart/my-cart.component';
 
 
 @NgModule({
