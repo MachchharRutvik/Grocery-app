@@ -1,0 +1,159 @@
+<div class="container headings">
+    <div>
+        <h4>Featured Products</h4>
+    </div>
+    <div>
+        <a [routerLink]="['./catalogue/categories/',items]" *ngFor="let items of categoriesName">{{items}}</a>
+    </div>
+</div>
+<div class="swiper-container" style="overflow: hidden;">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let product of products">
+            <div class="card" >
+                <a [routerLink]="['catalogue/product-details/',product.category,product.grocery_name,product.id] ">
+                <img src="{{product.imageUrl}}" class="card-img-top image" alt="">
+            </a>
+                <div class="card-body">
+                    <span class="card-text category">{{product.category}}</span>
+                    <h4>{{product.grocery_name}}</h4>
+                    <span>☆☆☆☆☆(4)</span>
+                    <span class="card-text storeName">By {{product.store}}</span>
+                
+                    <div>
+                        <span class="discountPrice card-text">{{product.discountPrice | currency}}</span>
+                        <span class="price card-text">{{product.price | currency}}</span>
+    
+                        <button class="btn addToCart" (click)="addToCart(product.id)"><i class="fa fa-shopping-cart "></i>Add</button>
+                    </div>
+                </div>
+            </div>
+       
+        </div>
+        <!-- add more product cards here -->
+    </div>
+    <div class="swiper-pagination"></div>
+    <!-- <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div> -->
+</div>
+<!-- <div id="carouselExample" class="carousel slide">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="box">
+            <img src="../assets/redish.png" alt="">
+            <span>vegetables</span>
+            <h5>Redish 500g</h5>
+            <span>reviews here</span>
+            <div class="price-section">
+                <span class="discount-price">$2</span>
+                <span class="price">$3.99</span>
+                <div class="add-btn ">
+                    <button class="btn btn-success"><i class="fa fa-shopping-cart "></i>Add</button>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="box">
+            <img src="../assets/redish.png" alt="">
+            <span>vegetables</span>
+            <h5>Redish 500g</h5>
+            <span>reviews here</span>
+            <div class="price-section">
+                <span class="discount-price">$2</span>
+                <span class="price">$3.99</span>
+                <div class="add-btn ">
+                    <button class="btn btn-success"><i class="fa fa-shopping-cart "></i>Add</button>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="box">
+            <img src="../assets/redish.png" alt="">
+            <span>vegetables</span>
+            <h5>Redish 500g</h5>
+            <span>reviews here</span>
+            <div class="price-section">
+                <span class="discount-price">$2</span>
+                <span class="price">$3.99</span>
+                <div class="add-btn ">
+                    <button class="btn btn-success"><i class="fa fa-shopping-cart "></i>Add</button>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="carousel-item active">
+        <div class="box">
+            <img src="../assets/redish.png" alt="">
+            <span>vegetables</span>
+            <h5>Redish 500g</h5>
+            <span>reviews here</span>
+            <div class="price-section">
+                <span class="discount-price">$2</span>
+                <span class="price">$3.99</span>
+                <div class="add-btn ">
+                    <button class="btn btn-success"><i class="fa fa-shopping-cart "></i>Add</button>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="box">
+            <img src="../assets/redish.png" alt="">
+            <span>vegetables</span>
+            <h5>Redish 500g</h5>
+            <span>reviews here</span>
+            <div class="price-section">
+                <span class="discount-price">$2</span>
+                <span class="price">$3.99</span>
+                <div class="add-btn ">
+                    <button class="btn btn-success"><i class="fa fa-shopping-cart "></i>Add</button>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+       <div class="box">
+            <img src="../assets/redish.png" alt="">
+            <span>vegetables</span>
+            <h5>Redish 500g</h5>
+            <span>reviews here</span>
+            <div class="price-section">
+                <span class="discount-price">$2</span>
+                <span class="price">$3.99</span>
+                <div class="add-btn ">
+                    <button class="btn btn-success"><i class="fa fa-shopping-cart "></i>Add</button>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+</div> -->
+
+
+
+
+
+<!-- <div class="Items-container">
+    <div class="box" *ngFor="let product of products">
+        <img src="../assets/redish.png" alt="">
+        <span>vegetables</span>
+        <h5>Redish 500g</h5>
+        <span>reviews here</span>
+        <div class="price-section">
+            <span class="discount-price">$2</span>
+            <span class="price">$3.99</span>
+            <div class="add-btn ">
+                <button class="btn btn-success"><i class="fa fa-shopping-cart "></i>Add</button>
+            </div>
+        </div>
+    </div>
+</div> -->

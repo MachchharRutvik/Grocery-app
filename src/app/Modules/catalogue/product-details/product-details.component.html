@@ -1,0 +1,125 @@
+<!-- <div class="container-fluid">
+    <div class="container-fluid center">
+        <h1>{{product_name}}</h1>
+    </div>
+
+    <div class="container w-75">
+        <div class="row">
+            {{product_category}} > {{product_name}}
+        </div>
+        <div class="row d-flex justify-content-evenly mt-5">
+            <div class="col-md-6 img-container">
+                <img src={{product.imageUrl}} alt="" class="img">
+            </div>
+            <div class="col-md-4 ms-5 ">
+                <div class="d-flex justify-content-between">
+                    <span class="productName">{{product_name}}</span>
+                    <i class="fa fa-thin fa-heart"></i>
+                </div>
+                <div class="d-flex justify-content-between kg">
+                    <span>1kg,price</span>
+                </div>
+                <div class="d-flex justify-content-between mt-2 review">
+                    <span>Review</span>
+                    <span>☆☆☆☆☆(4)</span>
+                </div>
+                <div class="d-flex justify-content-between addItems">
+                    <div>
+                        <span class="border rounded"><i class="fa fa-light fa-minus p-2" (click)="countMinus()"></i></span>
+                        <span>{{numberOfProduct}}</span>
+                        <span class="border rounded"><i class="fa fa-light fa-plus p-2" (click)="countPlus()"></i></span>
+                    </div>
+                    <span class="col-2 price">{{productPrice.toFixed(2) | currency}}</span>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between ">
+                    <button class="btn ">Add To Basket</button>
+                </div>
+
+            </div>
+        </div>
+        <hr class="mt-5">
+        <div class="container">
+            <div class="row">
+                <span>Product Details</span>
+            </div>
+            <div class="row detailPara">
+                <span>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sagittis, tortor et
+                    pellentesque
+                    vehicula, massa nunc imperdiet tortor, eget efficitur purus urna in risus. Integer ac est ut velit
+                    blandit suscipit. Aliquam sed turpis viverra, sollicitudin dui ac, pulvinar purus. Sed sagittis,
+                    diam et
+                    tempor mattis, neque quam condimentum odio, non interdum sem lectus elementum arcu. In magna justo,
+                    vestibulum sit amet dui id, consectetur laoreet mi. Donec non vulputate elit. Praesent a vehicula
+                    ex, et
+                    tristique lacus.
+                    Vestibulum lobortis pharetra enim, at congue felis lobortis eget. Duis mollis luctus sapien sit amet
+                    ultricies. Cras facilisis dolor sed lobortis porttitor. Suspendisse in ullamcorper massa. Donec
+                    vehicula
+                    aliquam tincidunt. Aliquam erat volutpat. Duis arcu leo, rutrum nec molestie quis, tempor vel ipsum.
+                    Nulla vestibulum, justo ac placerat ullamcorper, lectus ante ultrices leo, sed placerat nisl ligula
+                    vitae massa. Ut pretium luctus odio ut vulputate. Etiam lectus felis, rhoncus id feugiat in, finibus
+                    nec
+                    diam.
+                    Fusce eros mi, interdum sed nunc ut, tempus eleifend lorem. Ut venenatis, augue vitae faucibus
+                    hendrerit, mi leo semper nisl, eget tincidunt neque metus nec sem. Integer id risus eget lorem
+                    convallis
+                    iaculis at quis quam. Vestibulum molestie elementum mattis. Ut viverra felis et velit rutrum, in
+                    pharetra felis elementum. Curabitur ultrices arcu non eleifend porta. Curabitur quis tristique
+                    turpis.
+                    Maecenas ex erat, varius eu justo ut, ultricies iaculis dui.
+                    Etiam aliquet accumsan est, ut volutpat justo convallis quis. Donec dapibus euismod neque ac
+                    vulputate.
+                    Proin in purus a nulla gravida facilisis quis non eros. Nunc eu arcu et risus blandit laoreet quis
+                    sed
+                    lorem. Donec et dui sit amet nisi pharetra tempus. Aenean augue lacus, ultrices non lorem non,
+                    mollis
+                    elementum odio. Nullam orci libero, cursus nec sollicitudin vitae, convallis quis mi. Mauris eget
+                    semper
+                    augue. Aenean euismod ullamcorper elementum.
+                    Curabitur mollis sem et sem lacinia, a euismod ex semper. Integer sit amet leo quis justo molestie
+                    tempus non eu ipsum. Donec a mauris vulputate, maximus ex sit amet, mollis sapien. Quisque accumsan
+                    eleifend molestie. Sed interdum porttitor est at aliquam. Donec eu efficitur magna. Morbi eget odio
+                    nec
+                    nibh mattis bibendum. Ut ultrices erat a nunc facilisis mattis. Pellentesque habitant morbi
+                    tristique
+                    senectus et netus et malesuada fames ac turpis egestas. Nunc consectetur erat id purus lobortis
+                    ultrices. Morbi vestibulum ligula urna, id lobortis felis egestas ut. Ut sit amet pharetra massa.
+                    Curabitur sed est lacinia, congue dolor in, mollis mauris. Curabitur vitae metus luctus, sagittis
+                    nisi
+                    et, pharetra magna. Suspendisse eget tellus sollicitudin, viverra leo viverra, hendrerit quam.
+                </span>
+            </div>
+        </div>
+        <hr class="mt-5">
+
+    </div>
+</div> -->
+
+<div class="container">
+    <div class="container d-md-flex">
+        <div class="image">
+            <img src="../../../../assets/peach.png" alt="" width="500px" height="500px">
+        </div>
+        <div class="product-name">
+            <div class="row">{{product_name}}</div>
+            <div class="row">{{product_name}}</div>
+            <div class="row text-decoration-line-through">MRP:{{product_price}}</div>
+            <div class="row">Price:{{product_discount_price}}</div>
+            <div class="d-flex ">
+                <div class="border p-2">
+                    <span>{{product.quantity}}</span>
+                </div>
+                <div>
+                    <button class="btn" (click)="addToCart(product_id)">Add to cart </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="about-product">
+        <div class="row"><h2>{{product_name}}</h2></div>
+        <div class="row m-2" >About the product</div>
+        <div class="row m-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam dolor consectetur modi laudantium labore alias sapiente molestiae blanditiis fugit reiciendis, assumenda cupiditate aliquid cum culpa in sequi, officia odio veritatis?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat ab ratione distinctio deserunt aperiam, quam molestias nostrum ullam quas perferendis.</div>
+    </div>
+</div>

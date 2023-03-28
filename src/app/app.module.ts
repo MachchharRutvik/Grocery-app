@@ -1,40 +1,37 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-
-import { LoginComponent } from './user/login/login.component';
-import { RegistrationComponent } from './user/registration/registration.component';
-import { UserProfileComponent } from './user/user-profile/user-profile.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { SliderComponent } from './slider/slider.component';
-import { CategoryComponent } from './front/catalogue/category/category.component';
-import { ExploreCategoriesComponent } from './explore-categories/explore-categories.component';
-import { FeaturedProductsComponent } from './featured-products/featured-products.component';
-import { TrendinItemsComponent } from './trendin-items/trendin-items.component';
-import { HomeComponent } from './home/home.component';
+import { HeaderComponent } from './Layout/header/header.component';
+import { FooterComponent } from './Layout/footer/footer.component';
+import { SliderComponent } from './Shared/Components/slider/slider.component';
+import { ExploreCategoriesComponent } from './Shared/Components/explore-categories/explore-categories.component';
+import { FeaturedProductsComponent } from './Shared/Components/featured-products/featured-products.component';
+import { TrendinItemsComponent } from './Shared/Components/trendin-items/trendin-items.component';
+import { HomeComponent } from './Shared/Components/home/home.component';
 import { CommonModule } from '@angular/common';
-import { CatalogueModule } from './front/catalogue/catalogue.module';
-import { FormsModule } from '@angular/forms';
-import { FrontModule } from './front/front.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CheckoutComponent } from './Modules/cart/checkout/checkout.component';
+import { ProfileComponent } from './Modules/user-profile/profile/profile.component';
+import { ChangePasswordComponent } from './Modules/user-profile/change-password/change-password.component';
+import { SidebarLinksComponent } from './Modules/user-profile/sidebar-links/sidebar-links.component';
+import { OrderPlacedComponent } from './Modules/cart/order-placed/order-placed.component';
+import { OrdersComponent } from './Modules/user-profile/orders/orders.component';
+import { ManageAddressesComponent } from './Modules/user-profile/manage-addresses/manage-addresses.component';
+import { OrderDetailsComponent } from './Modules/user-profile/order-details/order-details.component';
+
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegistrationComponent,
-    UserProfileComponent,
     HeaderComponent,
     FooterComponent,
-    SliderComponent, ExploreCategoriesComponent, FeaturedProductsComponent, TrendinItemsComponent, HomeComponent
+    SliderComponent, ExploreCategoriesComponent, FeaturedProductsComponent, TrendinItemsComponent, HomeComponent, CheckoutComponent, OrderPlacedComponent, ProfileComponent, ChangePasswordComponent, OrdersComponent, ManageAddressesComponent,OrderDetailsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,CommonModule,
-    CatalogueModule,FormsModule,
-    HttpClientModule
+    AppRoutingModule,CommonModule,FormsModule,
+    HttpClientModule,ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

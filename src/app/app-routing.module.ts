@@ -1,32 +1,91 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CartComponent } from './front/catalogue/cart/cart.component';
-import { CategoryComponent } from './front/catalogue/category/category.component';
-import { ProductDetailsComponent } from './front/catalogue/product-details/product-details.component';
-import { MyCartComponent } from './front/user/my-cart/my-cart.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './Shared/Components/home/home.component';
 
 const routes: Routes = [
   {
-    path:'',component:HomeComponent
+    path: '',
+    component: HomeComponent,
   },
   {
-    path:'categories/:category',component:CategoryComponent
+    path: 'catalogue',
+    loadChildren: () =>
+      import('./Modules/catalogue/catalogue.module').then(
+        (c) => c.CatalogueModule
+      ),
   },
   {
-    path:'search/:category/:value',component:CategoryComponent
+    path: 'cart',
+    loadChildren: () =>
+      import('./Modules/cart/cart.module').then((c) => c.CartModule),
   },
   {
-    path:'featured-products/product-details/:product_category/:product_name/:id',component:ProductDetailsComponent
+    path: 'user-profile',
+    loadChildren: () =>
+      import('./Modules/user-profile/user-profile.module').then(
+        (c) => c.UserProfileModule
+      ),
   },
   {
-    path:"myCart",
-    component:CartComponent
+    path:'**',
+    component:HomeComponent
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
+
+/*
+ {
+    path: 'home/categories/:category',
+    component: CategoryComponent,
+  },
+  {
+    path: 'search/:category/:value',
+    component: CategoryComponent,
+  },
+  {
+    path: 'home/categories/:product_category/product-details/:product_name/:id',
+    component: ProductDetailsComponent,
+  },
+  {
+    path: 'home/featured-products/product-details/:product_category/:product_name/:id',
+    component: ProductDetailsComponent,
+  },
+  {
+    path: 'myCart',
+    component: CartComponent,
+  },
+  {
+    path: 'myCart/checkout',
+    component: CheckoutComponent,
+  },
+  {
+    path: 'myCart/checkout/orderPlaced',
+    component: OrderPlacedComponent,
+  },
+  {
+    path: 'change-password',
+    component: ChangePasswordComponent,
+  },
+  {
+    path: 'manage-addresses',
+    component: ManageAddressesComponent,
+  },
+  {
+    path: 'orders',
+    component: OrdersComponent,
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  */

@@ -1,0 +1,36 @@
+<div class="container headings">
+    <div>
+        <h4>Explore Categories</h4>
+    </div>
+    <div>
+        <a [routerLink]="['./catalogue/categories',i]" *ngFor="let i of categoriesName">{{i}}</a>
+    </div>
+</div>
+<div class="swiper-container" style="overflow: hidden;">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let product of categories" >
+            <div class="Items-container">
+                <a [routerLink]="['./catalogue/categories',product.category]">
+                <div class="box" >
+                    <img [src]="product.imageUrl" alt="">
+                    <h5>{{product.category}}</h5>
+                    <span>{{countByCategory[product.category]}} Items</span>
+                </div></a>
+            </div>
+        </div>
+
+        <!-- add more product cards here -->
+    </div>
+    <div class="swiper-pagination"></div>
+    <!-- <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div> -->
+</div>
+
+
+<!-- <div class="Items-container">
+    <div class="box" *ngFor="let category of categories">
+        <img src="../assets/peach.png" alt="">
+        <h5>peach</h5>
+        <span>20 Items</span>
+    </div>
+</div> -->

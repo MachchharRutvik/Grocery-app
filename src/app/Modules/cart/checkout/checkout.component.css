@@ -1,0 +1,76 @@
+.center {
+  text-align: center;
+  background-image: url("../../../../assets/categoryFruits.png");
+  padding: 70px 0px;
+  font-family: Quicksand;
+  color: #253d4e;
+}
+.main {
+  font-family: Quicksand;
+}
+.heading {
+  font-family: Quicksand;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 25px;
+  letter-spacing: 0px;
+  text-align: left;
+}
+.form-check-label {
+  font-family: Quicksand;
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 18px;
+  letter-spacing: 0.10000000149011612px;
+  text-align: left;
+  color: #181725;
+}
+.form-check-input:checked {
+  background: linear-gradient(0deg, #598c44, #598c44),
+    linear-gradient(0deg, #5f9548, #5f9548),
+    linear-gradient(0deg, #7c7c7c, #7c7c7c);
+}
+.form-check-input {
+  background: linear-gradient(0deg, #d5d5d5, #d5d5d5),
+    linear-gradient(0deg, #7c7c7c, #7c7c7c);
+}
+.terms-condition {
+  font-family: Quicksand;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0px;
+  text-align: left;
+}
+.payment-method {
+  font-family: Quicksand;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 25px;
+  letter-spacing: 0px;
+  text-align: left;
+}
+.grand-total {
+  font-family: Quicksand;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 25px;
+  letter-spacing: 0px;
+  text-align: left;
+}
+.btn {
+  height: 40.119998931884766px;
+  width: 154px;
+  left: 574px;
+  top: 1012.6000061035156px;
+  border-radius: 19px;
+}
+.cancel{
+  background: #B3B3B3;
+  color: white;
+}
+.place-order{
+  color: white;
+  background:#53B175;
+  ;
+}
