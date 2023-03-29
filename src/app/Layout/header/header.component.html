@@ -80,8 +80,17 @@
     </div>
 
     <div class="userPart">
-      <a routerLink="user-profile"><span>Pritey Mehta </span></a>
-      <i class="fa-sharp fa-solid fa-angle-down"></i>
+      <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Pritey Mehta
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" routerLink="user-profile/profile">profile</a></li>
+          <li><a class="dropdown-item" routerLink="user-profile/change-password">change Password</a></li>
+        </ul>
+      </div>
+      <!-- <a routerLink="user-profile"><span>Pritey Mehta </span></a>
+      <i class="fa-sharp fa-solid fa-angle-down"></i> -->
     </div>
   </div>
   <div class="secondRow d-flex container mt-3 mb-3">

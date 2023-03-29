@@ -6,10 +6,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { SidebarLinksComponent } from './sidebar-links/sidebar-links.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
-    UserProfileComponent,SidebarLinksComponent
+    UserProfileComponent,SidebarLinksComponent, LoginComponent, SignupComponent
   ],
   imports: [
     CommonModule,

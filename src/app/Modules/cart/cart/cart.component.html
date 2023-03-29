@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid">
     <div class="container-fluid center">
         <h1>My Cart</h1>
     </div>
@@ -22,9 +22,11 @@
                             </div>
                             <div class="d-flex justify-content-between addItems mt-md-3">
                                 <div>
-                                    <span class="border rounded"><i class="fa fa-light fa-minus p-2" (click)="itemMinus(product.id)"></i></span>
+                                    <span class="border rounded"><i class="fa fa-light fa-minus p-2"
+                                            (click)="itemMinus(product.id)"></i></span>
                                     <span>{{product.quantityCount}}</span>
-                                    <span class="border rounded"><i class="fa fa-light fa-plus p-2" (click)="itemPlus(product.id)"></i></span>
+                                    <span class="border rounded"><i class="fa fa-light fa-plus p-2"
+                                            (click)="itemPlus(product.id)"></i></span>
                                 </div>
                                 <span class="col-2 price"> {{product.subtotal | currency}}</span>
                             </div>
@@ -49,11 +51,74 @@
                         <span>{{grandTotal |currency}}</span>
                     </div>
                     <div>
-                        <button class="btn" (click)="checkout()" >Checkout</button>
+                        <button class="btn" (click)="checkout()">Checkout</button>
                     </div>
                 </div>
             </div>
 
         </div>
     </div>
-</div>
+</div> -->
+<div class="container ">
+    
+    <ng-container *ngIf="cartItems && cartItems.length>0">
+
+        <table class="table ">
+            <thead class=" thead table-dark">
+                <tr>
+                    <th scope="col">ITEM DESCRIPTION</th>
+                    <th scope="col">UNIT PRICE</th>
+                    <th scope="col">QUANTITY</th>
+                    <th scope="col">SUBTOTAL</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let category of categoriesOfCartItems">
+
+                <tr class="table-secondary">
+                    <td colspan="5">
+                        <pre>{{category}}  item:rs price</pre>
+                    </td>
+                </tr>
+                <tr *ngFor="let product of productsByCategory[category]">
+
+                    <td>
+                        <div class="row m-0 p-0">
+                            {{product.shop}}
+                        </div>
+                        <div class="row m-0 p-0">
+                            <b> {{product.grocery_name}}</b>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row m-0 p-0">
+                            <b>{{product.discPrice| currency}} </b>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <s>{{product.price | currency}}</s>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span class="border rounded"><i class="fa fa-light fa-minus p-2"
+                                    (click)="itemMinus(product.id)"></i></span><span
+                                class="">{{product.quantityCount}}</span>
+                            <span class="border rounded"><i class="fa fa-light fa-plus p-2"
+                                    (click)="itemPlus(product.id)"></i></span>
+                        </div>
+                    </td>
+                    <td>{{product.subtotal | currency}}</td>
+                    <td><button (click)="cancel(product)"><i class="fa fa-solid fa-xmark"></i></button></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+
+        <button (click)="checkout()">checkout</button>
+    
+    </ng-container>
+    <div class="container text-center" *ngIf="cartItems.length<1">
+        <h1>Cart is Empty</h1>
+    </div>
+    </div>

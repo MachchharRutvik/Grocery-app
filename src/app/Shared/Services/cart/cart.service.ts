@@ -12,7 +12,7 @@ import { ProductsService } from '../products/products.service';
 export class CartService {
 
 
-  cart:cartItem[]=[];
+  cart:CartItem[]=[];
   baseUrl=environment.baseURL;
   constructor(private http:HttpClient,private productService:ProductsService) { }
 
@@ -27,8 +27,11 @@ export class CartService {
       id:Number(cartProduct?.id),
       grocery_name:String(cartProduct?.grocery_name),
       price:Number(cartProduct?.price),
+      shop:String(cartProduct?.store),
+      discPrice:Number(cartProduct?.discountPrice),
       quantity:1, 
       quantityCount:1,
+      category:String(cartProduct?.category),
       subtotal:Number(cartProduct?.price),
       imageUrl:String(cartProduct?.imageUrl),
     }
@@ -45,4 +48,17 @@ export class CartService {
   getCartItems(){
     return this.cart;
   }
+  getProductsByCategory(){
+    let products = this.cart.reduce((result:any,product)=>{
+      (result[product.category] =result[product.category]||[]).push(product);
+      result[product.category].totalPrice = (result[product.category].totalPrice || 0)+product.discPrice;
+      return result; 
+    },{})
+    return products
+  }
+  getCategoryByProducts(){
+    let category = this.cart.map(product=>product.category)
+    return Array.from(new Set(category));
+  }
+
 }

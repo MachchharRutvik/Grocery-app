@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Grocery } from 'src/app/Shared/Interfaces/groceryInterface';
 import { ProductsService } from 'src/app/Shared/Services/products/products.service';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap, Route } from '@angular/router';
 // import { filter } from 'rxjs';
 import { CartService } from 'src/app/Shared/Services/cart/cart.service';
 
@@ -19,7 +19,8 @@ export class CategoryComponent implements OnInit {
   isNull = false;
   constructor(
     private productService: ProductsService,
-    private route: ActivatedRoute,private cartService:CartService
+    private route: ActivatedRoute,private cartService:CartService,
+    private router:Router
   ) { }
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -93,6 +94,9 @@ addToCart(id:any){
   console.log(this.cartService.getCartItems());
   this.cartService.cartBehaviour.next(this.cartService.getCartItems());
   
+}
+productDetails(product:any){
+this.router.navigate(['catalogue/product-details',product.grocery_name,product.id]);
 }
 
 }

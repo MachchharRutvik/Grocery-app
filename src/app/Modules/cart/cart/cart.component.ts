@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { cartItem } from 'interface';
 import { CartService } from 'src/app/Shared/Services/cart/cart.service';
 import { CartItem } from '../../../Shared/Interfaces/cartItem';
 
@@ -14,13 +15,23 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.cartItems = this.cartService.getCartItems();
-    this.getTotal();
+    console.log(this.cartItems)
+    // this.getTotal();
     this.cartService.cartItems$.subscribe((res)=>{
      this.cartItems= res;
     })
     this.cartService.cartGrandTotal.next(this.grandTotal);
+    this.categoriesOfCartItems = this.cartService.getCategoryByProducts();
+    console.log("getCategoryByProducts",this.categoriesOfCartItems);
+  this.productsByCategory = this.cartService.getProductsByCategory();
+  console.log("getProductsByCategory",this.productsByCategory);
+  
+    
     // this.cartService.cartTotalSubject.next(this.grandTotal);
+
   }
+  categoriesOfCartItems:any;
+  productsByCategory:any
   cartItems: CartItem[] = [];
   cartSubTotal: number = 0;
   GST: number = 0;
@@ -44,13 +55,17 @@ export class CartComponent implements OnInit {
     });
     this.getTotal();
   }
-  cancel(id: number) {
-    const index = this.cartItems.findIndex((res) => {
-      return res.id === id;
-    });
-    this.cartItems.splice(index, 1);
+  cancel(product:any) {
+    const categoryArray = this.productsByCategory[product.category];
+    const index = categoryArray.indexOf(product);
+    if (index > -1) {
+      categoryArray.splice(index, 1);
+      this.productsByCategory[product.category].totalPrice -= product.price;
+    }
+    this.productsByCategory.splice(index, 1);
     this.getTotal();
     this.cartService.cartBehaviour.next(this.cartItems);
+    this.getTotal();
   }
   getTotal() {
     const subTotal = this.cartItems.map((product: any) => product.subtotal);

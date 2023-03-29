@@ -17,9 +17,9 @@
     <div class="container">
         <ng-container *ngIf="products && products.length>0">
         <div class="card " *ngFor="let product of products" >
-            <a [routerLink]="['../../product-details',product.grocery_name,product.id]">  
+            <div (click)="productDetails(product)">  
             <img src="{{product.imageUrl}}" class="card-img-top image" alt="">
-            </a>
+            </div>
             <div class="card-body">
                 <span class="card-text category">{{product.category}}</span>
                 <h4>{{product.grocery_name}}</h4>

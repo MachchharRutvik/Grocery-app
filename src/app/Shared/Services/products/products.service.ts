@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Grocery } from './../../Interfaces/groceryInterface';
 
@@ -6,7 +7,7 @@ import { Grocery } from './../../Interfaces/groceryInterface';
 })
 export class ProductsService {
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
   categoriesName=[
     "All","Vegetables","Fruits","Coffee & teas","Meat"
   ]

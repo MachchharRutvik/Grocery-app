@@ -1,0 +1,74 @@
+<div class="container-fluid">
+    <div class="container-fluid center">
+        <h1>Sign-Up</h1>
+    </div>
+    <div class="container-fluid">
+        <form [formGroup]="signUpForm">
+            <div class="d-flex mt-5 w-75">
+                <div class="container mx-auto">
+                    <div class="row justify-content-end">
+                        <div class="col-md-4 d-flex flex-column ms-5 mt-4">
+                            <label for="first-name">First Name</label>
+                            <input type="text" formControlName="first_name">
+                            <div>
+                                <small *ngIf='first_name?.invalid && first_name?.touched' class="text-danger">First Name
+                                    must
+                                    be required</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex flex-column ms-5 mt-4">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" formControlName="last_name">
+                            <div>
+                                <small *ngIf='last_name?.invalid && last_name?.touched' class="text-danger">Last Name must
+                                    be
+                                    required</small>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-md-4 d-flex flex-column ms-5 mt-4">
+                            <label for="primary_email">primary_email</label>
+                            <input type="text" formControlName="primary_email">
+                            <div *ngIf='primary_email?.invalid && (primary_email?.touched || primary_email?.dirty)'>
+                                <small *ngIf="primary_email?.errors?.['required']" class="text-danger">primary_email must be
+                                    required</small>
+                                <small *ngIf="primary_email?.errors?.['primary_email']" class="text-danger">Invalid primary_email</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex flex-column ms-5 mt-4">
+                            <label for="contact">Contact Number</label>
+                            <input type="text" formControlName="primary_mobile_number">
+                            <div *ngIf='primary_mobile_number?.invalid && (primary_mobile_number?.touched || primary_mobile_number?.dirty)'>
+                                <small *ngIf="primary_mobile_number?.errors?.['required']" class="text-danger">Contact Number
+                                    must
+                                    be required</small>
+                                <small *ngIf="primary_mobile_number?.errors?.['pattern']" class="text-danger">Invalid mobile
+                                </small>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-md-4 d-flex flex-column ms-5 mt-4">
+                            <label for="username">User Name</label>
+                            <input type="text" formControlName="username">
+                            <small class="text-danger"
+                                *ngIf="username?.invalid && (username?.touched || username?.dirty)">User Name must be
+                                required</small>
+                        </div>
+                        <div class="col-md-4 d-flex flex-column ms-5 mt-4">
+                            <label for="password">Password</label>
+                            <input type="password" formControlName="password">
+                            <small class="text-danger"
+                                *ngIf="password?.invalid && (password?.touched || password?.dirty)">password must be
+                                required</small>
+                        </div>
+                    </div>
+                    <div class="row offset-7 mt-4"><button class="btn" (click)="signUp()">Save</button></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

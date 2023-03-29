@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseURL:"http://localhost:3000/cart",
+  baseURL:"https://beea-117-217-127-105.in.ngrok.io/api/v1",
+  registerURL:"/customer/register"
 
 };
 

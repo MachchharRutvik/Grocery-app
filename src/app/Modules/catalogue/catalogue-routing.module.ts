@@ -10,6 +10,10 @@ const routes: Routes = [
     component: CategoryComponent,
   },
   {
+    path: 'product-details/:product_name/:id',
+    component: ProductDetailsComponent,
+  },
+  {
     path: 'search/:category/:value',
     component: CategoryComponent,
   },
@@ -17,10 +21,7 @@ const routes: Routes = [
     path: 'categories/:category',
     component: CategoryComponent,
   },
-  {
-    path: 'product-details/:product_name/:id',
-    component: ProductDetailsComponent,
-  },
+ 
   {
     path: 'product-details/:product_category/:product_name/:id',
     component: ProductDetailsComponent,
