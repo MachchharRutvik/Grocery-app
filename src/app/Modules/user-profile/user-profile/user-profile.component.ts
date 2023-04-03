@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ApiService } from 'src/app/Shared/Services/api/api.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -7,8 +8,12 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./user-profile.component.css'],
 })
 export class UserProfileComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private router: Router) {}
-  headingText: any;
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private api: ApiService
+  ) {}
+  headingText: any = 'profile';
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -17,5 +22,7 @@ export class UserProfileComponent implements OnInit {
         this.headingText = array.pop();
       }
     });
+    // const token: any = localStorage.getItem('token');
+    this.api.getUserDetails().subscribe((res) => console.log(res));
   }
 }

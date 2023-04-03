@@ -34,7 +34,7 @@ export class ProductDetailsComponent implements OnInit {
     console.log(this.product);
     this.product_price = this.product.price
     this.product_discount_price= this.product.discountPrice;
-    console.log("cartItems", this.cartService.getCartItems)
+    console.log("cartItems", this.cartService.getCartItems())
   }
   
   countMinus() {
@@ -48,9 +48,9 @@ export class ProductDetailsComponent implements OnInit {
     this.product_discount_price = this.product.discountPrice * this.numberOfProduct
 
   }
-  addToCart(id: any){
-    this.cartService.addToCart(id);
-  this.cartService.cartBehaviour.next(this.cartService.getCartItems());
-    this.cartService.cartGrandTotal.next(this.product_discount_price)
+  addToCart(product: any){
+    this.cartService.addToCart(product);
+  // this.cartService.cartBehaviour.next(this.cartService.getCartItems());
+    // this.cartService.cartGrandTotal.next(this.product_discount_price)
   }
 }

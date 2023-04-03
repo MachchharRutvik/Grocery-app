@@ -4,6 +4,7 @@ import { ProductsService } from 'src/app/Shared/Services/products/products.servi
 import { Router, ActivatedRoute, ParamMap, Route } from '@angular/router';
 // import { filter } from 'rxjs';
 import { CartService } from 'src/app/Shared/Services/cart/cart.service';
+import { CartItem } from 'src/app/Shared/Interfaces/cartItem';
 
 @Component({
   selector: 'app-category',
@@ -21,7 +22,9 @@ export class CategoryComponent implements OnInit {
     private productService: ProductsService,
     private route: ActivatedRoute,private cartService:CartService,
     private router:Router
-  ) { }
+  ) { 
+    
+  }
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.route.params.subscribe((params) => {
@@ -88,11 +91,11 @@ onDisplay(){
   this.isClicked = !this.isClicked;
 }
 
-addToCart(id:any){
+addToCart(product:any){
   
-  this.cartService.addToCart(id);
+  this.cartService.addToCart(product);
   console.log(this.cartService.getCartItems());
-  this.cartService.cartBehaviour.next(this.cartService.getCartItems());
+  
   
 }
 productDetails(product:any){

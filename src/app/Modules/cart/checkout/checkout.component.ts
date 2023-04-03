@@ -15,15 +15,14 @@ export class CheckoutComponent implements OnInit {
   }
   grandTotal=0
   ngOnInit(): void {
-     this.cartService.grandTotal$.subscribe((amount)=>{
-      this.grandTotal = amount;
-    })
+     this.cartService.cartSubTotal.subscribe(res=>this.grandTotal = res);
+    
   
   }
   cancelOrder(){
     if(confirm("Are you sure you want to cancel the order?")){
-      this.cartService.cartBehaviour.next([]);
-      this.cartService.cartGrandTotal.next(0);
+      // this.cartService.cartBehaviour.next([]);
+      // this.cartService.cartGrandTotal.next(0);
       this.router.navigate([''])
     }
   }

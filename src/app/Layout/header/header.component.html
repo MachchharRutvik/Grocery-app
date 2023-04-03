@@ -46,7 +46,7 @@
 <nav class="main">
   <div class="container d-flex">
     <div class="logoPart">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="">
         <img src="../assets/logo.png" alt="Bootstrap" width="32" height="35">
         <img src="../assets/cybercomcreation.png" alt="Bootstrap" width="196" height="44">
       </a>
@@ -78,15 +78,20 @@
         </div>
       
     </div>
+    <div>
+    <div class="btn" routerLink="login" *ngIf="!token">Login</div>
+    <div class="btn" routerLink="signup" *ngIf="!token">SignUp</div>
+  </div>
 
-    <div class="userPart">
+    <div class="userPart" *ngIf="token" >
       <div class="dropdown">
         <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Pritey Mehta
+          Rutvik Machchhar
         </button>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" routerLink="user-profile/profile">profile</a></li>
           <li><a class="dropdown-item" routerLink="user-profile/change-password">change Password</a></li>
+          <li ><a class="dropdown-item" (click)="logout()">Logout</a></li>
         </ul>
       </div>
       <!-- <a routerLink="user-profile"><span>Pritey Mehta </span></a>

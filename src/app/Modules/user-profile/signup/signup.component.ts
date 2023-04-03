@@ -9,7 +9,11 @@ import { ApiService } from 'src/app/Shared/Services/api/api.service';
   styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent implements OnInit {
-  constructor(private apiService:ApiService,private route:Router ,private fb: FormBuilder) {}
+  constructor(
+    private apiService: ApiService,
+    private route: Router,
+    private fb: FormBuilder
+  ) {}
   signUpForm!: FormGroup;
   formValues: any;
   ngOnInit(): void {
@@ -46,9 +50,15 @@ export class SignupComponent implements OnInit {
   get password() {
     return this.signUpForm.get('password');
   }
-  signUp(){
+  signUp() {
     const userDetails = this.signUpForm.getRawValue();
-    this.apiService.signUpApi(userDetails);
-    this.route.navigate(['login']);
+    this.apiService.signUpApi(userDetails).subscribe(
+      (data: any) => {
+        console.log(data);
+        alert(data.message);
+        this.route.navigate(['login']);
+      },
+      (error) => console.log(error)
+    );
   }
 }

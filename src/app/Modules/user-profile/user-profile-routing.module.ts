@@ -7,6 +7,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ManageAddressFormComponent } from './manage-address-form/manage-address-form.component';
 
 const routes: Routes = [
   {
@@ -31,9 +32,14 @@ const routes: Routes = [
         component: ManageAddressesComponent,
       },
       {
+        path: 'manage-address-form',
+        component: ManageAddressFormComponent,
+      },
+      {
         path: 'change-password',
         component: ChangePasswordComponent,
       },
+    
     ],
   },
 ];

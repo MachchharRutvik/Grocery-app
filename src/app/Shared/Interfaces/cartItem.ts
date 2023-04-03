@@ -3,7 +3,7 @@ export interface CartItem {
   grocery_name: string;
   price: number;
   shop:string;
-  discPrice:number;
+  discPrice?:number;
   quantity: number;
   subtotal: number;
   imageUrl: string;

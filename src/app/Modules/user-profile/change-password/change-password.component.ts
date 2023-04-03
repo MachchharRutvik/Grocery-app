@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { passwordValidator } from 'src/app/Shared/password.validator';
+import { ApiService } from 'src/app/Shared/Services/api/api.service';
 
 @Component({
   selector: 'app-change-password',
@@ -9,7 +10,7 @@ import { passwordValidator } from 'src/app/Shared/password.validator';
 })
 export class ChangePasswordComponent implements OnInit {
 
-  constructor(private fb:FormBuilder) { 
+  constructor(private api:ApiService,private fb:FormBuilder) { 
     
   }
   
@@ -32,6 +33,21 @@ export class ChangePasswordComponent implements OnInit {
     get confirmPassword(){
       return this.passwordForm.get('confirmPassword')
     }
-    
+    changePassword(){
+      const passwords = {
+        oldPassword:this.currentPassword?.value,
+        newPassword:this.newPassword?.value
+      }
+      console.log("password object",passwords);
+      this.api.changePasswordApi(passwords).subscribe((res:any)=>{
+        alert("Password Changed Successfully");
+      },
+      (err)=>{
+        console.log(err);
+        
+        alert(err.error.message);
+      });
+      
+    }
 
 }

@@ -1,0 +1,19 @@
+
+input{
+    background: linear-gradient(0deg, #D5D5D5, #D5D5D5),
+       linear-gradient(0deg, #F0F0F0, #F0F0F0);
+       border: 1px solid #D4D4D4
+   }
+   label{
+       font-size: 15px;
+       font-weight: 500;
+   }
+   .btn{
+       color: white;
+       background-color: #53B175;
+       border: 1px solid #53B175;
+       border-radius: 10px;
+       width: 139px;
+       height: 38px;
+   
+   }

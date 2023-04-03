@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeaderComponent } from './Layout/header/header.component';
 import { FooterComponent } from './Layout/footer/footer.component';
 import { SliderComponent } from './Shared/Components/slider/slider.component';
@@ -20,20 +20,22 @@ import { OrderPlacedComponent } from './Modules/cart/order-placed/order-placed.c
 import { OrdersComponent } from './Modules/user-profile/orders/orders.component';
 import { ManageAddressesComponent } from './Modules/user-profile/manage-addresses/manage-addresses.component';
 import { OrderDetailsComponent } from './Modules/user-profile/order-details/order-details.component';
+import { AuthInterceptor } from './Shared/Services/auth.interceptor';
+import { FeaturesComponent } from './Shared/Components/features/features.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    SliderComponent, ExploreCategoriesComponent, FeaturedProductsComponent, TrendinItemsComponent, HomeComponent, CheckoutComponent, OrderPlacedComponent, ProfileComponent, ChangePasswordComponent, OrdersComponent, ManageAddressesComponent,OrderDetailsComponent
+    SliderComponent, ExploreCategoriesComponent, FeaturedProductsComponent, TrendinItemsComponent, HomeComponent, CheckoutComponent, OrderPlacedComponent, ProfileComponent, ChangePasswordComponent, OrdersComponent, ManageAddressesComponent,OrderDetailsComponent, FeaturesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,CommonModule,FormsModule,
     HttpClientModule,ReactiveFormsModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,79 @@
+<div class="container">
+    <form [formGroup]="manageAddressForm">
+        <div class="d-flex mt-5 ">
+            <div class="container ms-5">
+                <div class="row ">
+                    <div class="col-md-4 d-flex flex-column ms-5 mt-4">
+                        <label for="address_line_1">Address Line 1</label>
+                        <input type="text" formControlName="address_line_1">
+                        <small class="text-danger" *ngIf="addressLine1?.invalid && addressLine1?.touched">Address Line 1
+                            is required</small>
+                    </div>
+                    <div class="col-md-4 d-flex flex-column ms-5 mt-4">
+                        <label for="address_line_2">Address Line 2</label>
+                        <input type="text" formControlName="address_line_2">
+                        <small class="text-danger" *ngIf="addressLine2?.invalid && addressLine2?.touched">Address Line 2
+                            is required</small>
+                    </div>
+                    <div class="col-md-1 d-flex flex-column ms-5 mt-4"><button class="btn" (click)="addAddress()">Add</button></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 d-flex flex-column ms-5 mt-4">
+                        <label for="area">Area</label>
+                        <input type="text" formControlName="area">
+                        <small class="text-danger" *ngIf="area?.invalid && area?.touched">Area field is required</small>
+                    </div>
+     
+                    <div class="col-md-4 d-flex flex-column ms-5 mt-4">
+                        <label for="state" >State</label>
+                        <select  formControlName="state" (change)="onStateSelect()">
+                            <option value="" disabled selected>Select State</option>
+                            <option *ngFor="let state of states">{{state.name}}</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4 d-flex flex-column ms-5 mt-4">
+                        <label for="city">City</label>
+                        <select formControlName="city" >
+                            <option value="" disabled selected>Select city</option>
+                            <option value="city" *ngFor="let city of citiesOfSelectedState">
+                                {{city}}</option>
+                        </select>
+                        <small class="text-danger" *ngIf="city?.invalid && city?.touched">City field is required</small>
+                    </div>
+                    <div class="col-md-4 d-flex flex-column ms-5 mt-4">
+                        <label for="Country">Country</label>
+                        <input type="text" formControlName="country">
+                        <small class="text-danger" *ngIf="country?.invalid && country?.touched">Country field is required</small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 d-flex flex-column ms-5 mt-4">
+                        <label for="postal_code">Postal code</label>
+                        <input type="text" formControlName="postal_code">
+                        <div *ngIf="postalCode?.invalid && postalCode?.touched">
+                            <small class="text-danger" *ngIf="postalCode?.errors?.['required']">Postal code is required</small>
+                            <small class="text-danger" *ngIf="postalCode?.errors?.['minlength']">postal code length should be 6 charectecters</small>
+                            <small class="text-danger" *ngIf="postalCode?.errors?.['maxlength']">postal code length should be 6 charecters</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex flex-column ms-5 mt-4">
+                        <label for="landmark">Landmark</label>
+                        <input type="text" formControlName="landmark">
+                        <small class="text-danger" *ngIf="landmark?.invalid && landmark?.touched">Landmark field is required</small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 d-flex flex-column ms-5 mt-4">
+                        <label for="tag">Tag</label>
+                        <input type="text" formControlName="tag">
+                        <small class="text-danger" *ngIf="tag?.invalid && tag?.touched">Tag field is required</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>

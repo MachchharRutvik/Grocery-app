@@ -13,7 +13,7 @@ import { ProductsService } from '../../Services/products/products.service';
 export class FeaturedProductsComponent implements AfterViewInit {
 
   constructor(private category:ProductsService,private cartService:CartService) { 
-  
+   
 
   }
   categoriesName = this.category.categoriesName;
@@ -41,11 +41,14 @@ export class FeaturedProductsComponent implements AfterViewInit {
     });
   }
  
+ 
   products = this.category.groceryList;  
-    addToCart(id:any){
-  this.cartService.addToCart(id);
-  console.log("getCart",this.cartService.getCartItems());
-    this.cartService.cartBehaviour.next(this.cartService.getCartItems());
+    addToCart(product:any){
+  this.cartService.addToCart(product);
+  console.log(this.cartService.cartDataSubject$,"cartdataons=efksnk")
+  
+
+ 
   }
    
 

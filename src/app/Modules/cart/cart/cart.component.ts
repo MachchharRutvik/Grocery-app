@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { cartItem } from 'interface';
+import { Grocery } from 'src/app/Shared/Interfaces/groceryInterface';
+import { ApiService } from 'src/app/Shared/Services/api/api.service';
 import { CartService } from 'src/app/Shared/Services/cart/cart.service';
 import { CartItem } from '../../../Shared/Interfaces/cartItem';
 
@@ -10,79 +11,181 @@ import { CartItem } from '../../../Shared/Interfaces/cartItem';
   styleUrls: ['./cart.component.css'],
 })
 export class CartComponent implements OnInit {
-  constructor(private cartService: CartService, private router: Router) {}
+  constructor(
+    private cartService: CartService,
+    private api: ApiService,
+    private router: Router
+  ) {
+
+  }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this.cartItems = this.cartService.getCartItems();
-    console.log(this.cartItems)
-    // this.getTotal();
-    this.cartService.cartItems$.subscribe((res)=>{
-     this.cartItems= res;
-    })
-    this.cartService.cartGrandTotal.next(this.grandTotal);
-    this.categoriesOfCartItems = this.cartService.getCategoryByProducts();
-    console.log("getCategoryByProducts",this.categoriesOfCartItems);
-  this.productsByCategory = this.cartService.getProductsByCategory();
-  console.log("getProductsByCategory",this.productsByCategory);
-  
-    
-    // this.cartService.cartTotalSubject.next(this.grandTotal);
+    this.api.getCartData().subscribe((res) => {
+      this.cartItems = res;
+      console.log('hello', this.cartSubTotal);
+      this.categoriesOfCartItems = this.getCategoryByProducts();
+      console.log('getCategoryByProducts', this.categoriesOfCartItems);
+      
+      this.productsByCategory = this.getProductsByCategory();
+      // this.cartService.getTotal();
+      console.log('getProductsByCategory', this.productsByCategory);
+      this.getTotal();
+    });
+
 
   }
-  categoriesOfCartItems:any;
-  productsByCategory:any
-  cartItems: CartItem[] = [];
+  categoriesOfCartItems: string[] = [];
+  productsByCategory: any;
+  cartItems: any;
   cartSubTotal: number = 0;
   GST: number = 0;
   grandTotal: number = 0;
-  itemMinus(id: number) {
-    console.log('cartItesm', this.cartItems);
-    this.cartItems.forEach((res) => {
-      if (res.id === id && res.quantityCount >= 1) {
-        res.quantityCount = res.quantityCount - 1;
-        res.subtotal = res.subtotal - res.price;
-      }
-    });
-    this.getTotal();
+  cartItemCount: number = 0;
+  categoryWiseTotal: any;
+  getProductsByCategory() {
+    let products = this.cartItems.reduce(
+      (result: any, product: { category: string | number; discPrice: any }) => {
+        (result[product.category] = result[product.category] || []).push(
+          product
+        );
+        result[product.category].totalPrice =
+          (result[product.category].totalPrice || 0) + product.discPrice;
+        return result;
+      },
+      {}
+    );
+    return products;
   }
-  itemPlus(id: number) {
-    this.cartItems.forEach((res) => {
-      if (res.id === id) {
-        res.quantityCount = res.quantityCount + 1;
-        res.subtotal = res.subtotal + res.price;
-      }
-    });
-    this.getTotal();
+  getCategoryByProducts(): string[] {
+    let category = this.cartItems.map(
+      (product: { category: string }) => product.category
+    );
+
+    return Array.from(new Set(category));
   }
-  cancel(product:any) {
-    const categoryArray = this.productsByCategory[product.category];
-    const index = categoryArray.indexOf(product);
-    if (index > -1) {
-      categoryArray.splice(index, 1);
-      this.productsByCategory[product.category].totalPrice -= product.price;
+  itemPlus(product: CartItem) {
+    product.quantityCount++;
+    if (product.discPrice) {
+      product.subtotal = product.quantityCount * product.discPrice;
+    } else {
+      product.subtotal = product.quantityCount * product.price;
     }
-    this.productsByCategory.splice(index, 1);
-    this.getTotal();
-    this.cartService.cartBehaviour.next(this.cartItems);
-    this.getTotal();
+
+    this.api.updateItem(product).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.api.getCartData().subscribe((res) => {
+          this.cartItems = res;
+          // console.log('cartItems', this.cartItems);
+          this.getTotal();
+        });
+      },
+      error: (error) => {
+        console.log('from itemPlus', error);
+      },
+    });
+  }
+  itemMinus(product: CartItem) {
+    if (product.quantityCount > 1) {
+      product.quantityCount--;
+      if (product.discPrice) {
+        product.subtotal = product.quantityCount * product.discPrice;
+      } else {
+        product.subtotal = product.quantityCount * product.price;
+      }
+    }
+    if(product.quantityCount==0){
+      this.api.deleteProduct(product).subscribe((res)=>{
+        console.log(res);
+        this.api.getCartData().subscribe((res) => {
+          this.cartItems = res;
+          this.categoriesOfCartItems = this.getCategoryByProducts();
+          // console.log('getCategoryByProducts', this.categoriesOfCartItems);
+          this.productsByCategory = this.getProductsByCategory();
+          // console.log('getProductsByCategory', this.productsByCategory);
+          // console.log('cartItems', this.cartItems);
+
+          this.getTotal();
+        },(err)=>{
+          console.log(err);
+          
+        })
+      })
+      return;
+    }
+
+    this.api.updateItem(product).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.api.getCartData().subscribe((res) => {
+          this.cartItems = res;
+          // console.log('cartItems', this.cartItems);
+          this.getTotal();
+        });
+      },
+      error: (error) => {
+        console.log('from itemMinus', error);
+      },
+    });
+    return;
+  }
+  cancel(product: CartItem) {
+    this.api.deleteProduct(product).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.api.getCartData().subscribe((res) => {
+          this.cartItems = res;
+          this.categoriesOfCartItems = this.getCategoryByProducts();
+          // console.log('getCategoryByProducts', this.categoriesOfCartItems);
+          this.productsByCategory = this.getProductsByCategory();
+          // console.log('getProductsByCategory', this.productsByCategory);
+          console.log('cartItems', );
+          this.cartService.cartDataSubject.next(this.cartItems)
+
+          this.getTotal();
+        });
+      },
+      error: (error) => {
+        console.log('from itemPlus', error);
+      },
+    });
   }
   getTotal() {
-    const subTotal = this.cartItems.map((product: any) => product.subtotal);
-    this.cartSubTotal = subTotal.reduce((acc: number, curr: number) => {
-      return acc + curr;
-    }, 0);
-    this.GST = this.cartSubTotal * (10 / 100);
-    this.grandTotal = this.cartSubTotal + this.GST;
+    if (this.cartItems) {
+      let total = 0;
+      this.cartItems.forEach((item: CartItem) => {
+        if (item.subtotal) {
+          total = total + item.subtotal;
+        }
+        this.cartSubTotal = total;
+     
+      });
+
+      const totalObj: { [key: string]: number } = {};
+      for (const category of this.categoriesOfCartItems) {
+        let totalPrice = 0;
+        for (const product of this.productsByCategory[category]) {
+          totalPrice += product.subtotal;
+        }
+        totalObj[category] = totalPrice;
+        this.categoryWiseTotal = totalObj;
+      }
+      this.cartService.cartSubTotal.next(this.cartSubTotal);
+    }
   }
+
   checkout() {
     if (this.cartItems.length > 0) {
-      console.log(this.cartItems);
-      
-      this.cartService.cartGrandTotal.next(this.grandTotal);
-      this.router.navigate(['cart/myCart/checkout']);
-    }else{
-      alert("empty cart");
+      if(localStorage.getItem('token')){
+        console.log(this.cartItems);
+        this.router.navigate(['cart/myCart/checkout']);
+      }
+      else{
+        this.router.navigate(['login'])
+      }
+    } else {
+      alert('empty cart');
     }
   }
 }

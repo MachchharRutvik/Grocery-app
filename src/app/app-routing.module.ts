@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './Modules/user-profile/login/login.component';
 import { SignupComponent } from './Modules/user-profile/signup/signup.component';
 import { HomeComponent } from './Shared/Components/home/home.component';
+import {AuthGuard} from './Shared/Guards/auth.guard'
+import { ManageAddressFormComponent } from './Modules/user-profile/manage-address-form/manage-address-form.component';
 
 const routes: Routes = [
   {
@@ -34,7 +36,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./Modules/user-profile/user-profile.module').then(
         (c) => c.UserProfileModule
-      ),
+      ),canActivate: [AuthGuard]
   },
   {
     path: '**',
