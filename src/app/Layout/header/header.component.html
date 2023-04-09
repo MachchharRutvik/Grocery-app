@@ -55,7 +55,7 @@
       <select name="categories" (change)="onSelectCategory($event)"
         class="form-select border border-end-0 rounded-0 categoriesPart">
         <option value="">Categories</option>
-        <option value="option1" *ngFor="let i of categories" value={{i}}>{{i}}</option>
+        <option value="option1" *ngFor="let i of categories" value={{i.title}}>{{i.title}}</option>
       </select>
       <form (submit)="onSubmit($event)" class="d-flex">
         <input [(ngModel)]="searchItem" class="form-control border border-start-0 rounded-0 search-input" type="text"
@@ -63,7 +63,7 @@
         <button class="btn searchBtn "><i class="fa fa-search"></i></button>
       </form>
     </div>
-    <div class="cartPart d-flex">
+    <div class="cartPart d-flex" >
       <a routerLink="/cart/myCart" class="cartLogo">
         <div>
           <i class="fa fa-shopping-cart cart" style="width: 24px;height: 24px;"></i>
@@ -86,7 +86,7 @@
     <div class="userPart" *ngIf="token" >
       <div class="dropdown">
         <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Rutvik Machchhar
+          {{userDetails?.username}}  
         </button>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" routerLink="user-profile/profile">profile</a></li>
@@ -100,7 +100,7 @@
   </div>
   <div class="secondRow d-flex container mt-3 mb-3">
     <div class="leftPart "> <a routerLink="./catalogue/categories/All"><button
-          class="btn btn-success categories-btn rounded-0">Browse all categories</button></a>
+          class="btn btn-success categories-btn rounded-0" (click)="allCategories()">Browse all categories</button></a>
     </div>
     <div class="rightPart d-flex ">
       <i class="fa fa-phone"></i>

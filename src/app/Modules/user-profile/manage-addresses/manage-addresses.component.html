@@ -1,62 +1,25 @@
 <div class="container-fluid">
-    
-    <div class="container d-flex mt-5">
-        <div class="class-container border d-flex ms-5">
-            <div class="card m-4" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        Default Address:Office
-                    </h5>
-                    <p class="card-text">
-                        Pritee Mehta
-                    </p>
-                    <p class="card-text">
-                        B-305,The first,near ITC Narmada,Vastrapur,the first,behind
-                        keshavbaug,ahmedabad,gandhinagar-380015,ph-1234567890
-                    </p>
-                    <a href="" class="btn border">Deliver here</a>
-                    <i class="fas fa-regular fa-trash border mx-5"></i>
-                    <i class="fa fa-light fa-pen border "></i>
-                </div>
-
-            </div>
-            <div class="card m-4" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        Home
-                    </h5>
-                    <p class="card-text">
-                        Pritee Mehta
-                    </p>
-                    <p class="card-text">
-                        B-305,The first,near ITC Narmada,Vastrapur,the first,behind
-                        keshavbaug,ahmedabad,gandhinagar-380015,ph-1234567890
-                    </p>
-                    <a href="" class="btn border">Deliver here</a>
-                    <i class="fas fa-regular fa-trash border mx-5"></i>
-                    <i class="fa fa-light fa-pen border "></i>
-                </div>
-
-            </div>
-            <div class="card m-4" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        Home
-                    </h5>
-                    <p class="card-text">
-                        Pritee Mehta
-                    </p>
-                    <p class="card-text">
-                        B-305,The first,near ITC Narmada,Vastrapur,the first,behind
-                        keshavbaug,ahmedabad,gandhinagar-380015,ph-1234567890
-                    </p>
-                    <a href="" class="btn border">Deliver here</a>
-                    <i class="fas fa-regular fa-trash border mx-5"></i>
-                    <i class="fa fa-light fa-pen border "></i>
-                </div>
-            </div>
+    <div class="container mt-5">
+      <div class="d-flex flex-wrap justify-content-start align-items-center">
+        <div class="card m-4" style="width: 18rem; " *ngFor="let address of customerAddresses">
+          <div class="card-body" style="width: 18rem;height: 16rem;">
+            <h5 class="card-title">
+              Default Address:{{address.tag}}
+            </h5>
+            <p class="card-text">
+              {{userName}}
+            </p>
+            <p class="card-text">
+              {{address.address_line_1}},{{address.address_line_2}},{{address.area}},
+              {{address.landmark}},{{address.city}},{{address.state}},{{address.country}}{{-address.postal_code}},
+            </p>
+            <a href="" class="btn border">Deliver here</a>
+            <i class="fas fa-regular fa-trash border mx-5 " role="button" (click)="deleteAddress(address)"></i>
+            <i class="fa fa-light fa-pen border " role="button" (click)="updateAddress(address)"></i>
+          </div>
         </div>
-        <button class="btn btn-up" (click)="addAddress()">Add Address</button>
+      </div>
+      <button class="btn btn-up" (click)="addAddress()">Add Address</button>
     </div>
-
-</div>
+  </div>
+  

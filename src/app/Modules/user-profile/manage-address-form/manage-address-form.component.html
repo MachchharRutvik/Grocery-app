@@ -15,7 +15,8 @@
                         <small class="text-danger" *ngIf="addressLine2?.invalid && addressLine2?.touched">Address Line 2
                             is required</small>
                     </div>
-                    <div class="col-md-1 d-flex flex-column ms-5 mt-4"><button class="btn" (click)="addAddress()">Add</button></div>
+                    <div class="col-md-1 d-flex flex-column ms-5 mt-4"><button *ngIf="!addressId" class="btn" (click)="addAddress()">Add</button><button *ngIf="addressId" class="btn" (click)="updateAddress()">Update</button></div>
+                 
                 </div>
                 <div class="row">
                     <div class="col-md-4 d-flex flex-column ms-5 mt-4">
@@ -38,7 +39,7 @@
                         <label for="city">City</label>
                         <select formControlName="city" >
                             <option value="" disabled selected>Select city</option>
-                            <option value="city" *ngFor="let city of citiesOfSelectedState">
+                            <option *ngFor="let city of citiesOfSelectedState">
                                 {{city}}</option>
                         </select>
                         <small class="text-danger" *ngIf="city?.invalid && city?.touched">City field is required</small>

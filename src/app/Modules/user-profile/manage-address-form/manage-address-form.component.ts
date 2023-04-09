@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { log } from 'console';
 import { ApiService } from 'src/app/Shared/Services/api/api.service';
 
@@ -9,10 +10,31 @@ import { ApiService } from 'src/app/Shared/Services/api/api.service';
   styleUrls: ['./manage-address-form.component.css'],
 })
 export class ManageAddressFormComponent implements OnInit {
-  constructor(private fb: FormBuilder,private api:ApiService) {}
+  constructor(private fb: FormBuilder,private router:Router,private api:ApiService,private route:ActivatedRoute) {}
   selectedState: any;
   citiesOfSelectedState: any;
-  ngOnInit(): void {}
+  addressId:any
+  ngOnInit(): void {
+    console.log("hello form");
+    
+   this.addressId = this.route.snapshot.paramMap.get('id');
+   if(this.addressId){
+     console.log(this.addressId);
+     this.api.getUserDetails().subscribe((res)=>{
+      const userAddresses = res.data.addresses
+      console.log(userAddresses,"useraddress");
+
+      if(userAddresses){
+        const existingAddress = userAddresses.find((res:any)=>{
+          return res.id == this.addressId
+        })
+        console.log("existingAddewaa",existingAddress);
+        this.manageAddressForm.patchValue(existingAddress);
+        
+      }
+     })
+   }
+  }
   states = [
     { name: 'Andaman and Nicobar Islands', cities: ['Port Blair'] },
     {
@@ -336,9 +358,17 @@ export class ManageAddressFormComponent implements OnInit {
     console.log("formvalues",formValues)
     this.api.addAddress(formValues).subscribe((res)=>{
       console.log("add address res",res);
+      alert("Address added successfully");
+      this.router.navigate(['user-profile/manage-addresses'])
     },(err)=>{
       console.log("add address err",err);
-
     });
   }
+  updateAddress(){
+    const updatedValues = this.manageAddressForm.getRawValue()
+    console.log(updatedValues,"updatedValues");
+    this.api.updateAddress(this.addressId,updatedValues)
+    
+  }
+
 }

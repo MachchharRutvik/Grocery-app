@@ -3,18 +3,18 @@
         <h4>Explore Categories</h4>
     </div>
     <div>
-        <a [routerLink]="['./catalogue/categories',i]" *ngFor="let i of categoriesName">{{i}}</a>
+        <a [routerLink]="['./catalogue/categories',i.slug]" *ngFor="let i of categoriesName">{{i.title}}</a>
     </div>
 </div>
 <div class="swiper-container" style="overflow: hidden;">
     <div class="swiper-wrapper">
         <div class="swiper-slide" *ngFor="let product of categories" >
             <div class="Items-container">
-                <a [routerLink]="['./catalogue/categories',product.category]">
+                <a [routerLink]="['./catalogue/categories',product.slug]">
                 <div class="box" >
-                    <img [src]="product.imageUrl" alt="">
-                    <h5>{{product.category}}</h5>
-                    <span>{{countByCategory[product.category]}} Items</span>
+                    <!-- <img [src]="product.imageUrl" alt=""> -->
+                    <h5>{{product.title}}</h5>
+                    <span>{{'count'}} Items</span>
                 </div></a>
             </div>
         </div>

@@ -11,7 +11,9 @@ import { ApiService } from 'src/app/Shared/Services/api/api.service';
 export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder, private api: ApiService,private route:Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
   loginForm = this.fb.group({
     username: ['', Validators.required],
     password: ['', Validators.required],
@@ -20,14 +22,6 @@ export class LoginComponent implements OnInit {
     const loginFormValue = this.loginForm.getRawValue();
     console.log('this login form value', loginFormValue);
 
-    this.api.loginApi(loginFormValue).subscribe(
-      (data: any) => {
-        // alert(data.message);
-        console.log(data);
-        localStorage.setItem("token",data.data)
-        this.route.navigate(['home']);
-      },
-      (error) => alert(error.error.message)
-    );
+    this.api.loginApi(loginFormValue)
   }
 }

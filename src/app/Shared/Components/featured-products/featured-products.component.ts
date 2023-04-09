@@ -44,11 +44,9 @@ export class FeaturedProductsComponent implements AfterViewInit {
  
   products = this.category.groceryList;  
     addToCart(product:any){
+  this.cartService.getCartTotal();
   this.cartService.addToCart(product);
   console.log(this.cartService.cartDataSubject$,"cartdataons=efksnk")
-  
-
- 
   }
    
 

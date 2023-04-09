@@ -61,7 +61,8 @@
 </div> -->
 <div class="container ">
 
-    <ng-container *ngIf="cartItems && cartItems.length>0">
+    <ng-container *ngIf="!isEmpty">
+
 
         <table class="table ">
             <thead class=" thead table-dark">
@@ -73,29 +74,29 @@
                     <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody *ngFor="let category of categoriesOfCartItems">
-        
-                
-                <tr class="table-secondary">
-                    <td colspan="5" >
+            <tbody>
+
+
+                <!-- <tr class="table-secondary">
+                    <td colspan="5">
                         <pre>{{category}}  {{productsByCategory[category].length}} items :rs {{categoryWiseTotal[category] | currency}}</pre>
                     </td>
-                </tr>
-            
-                <ng-container *ngFor="let product of productsByCategory[category]">
+                </tr> -->
+
+                <ng-container *ngFor="let product of cartItems">
                     <tr>
 
                         <td>
                             <div class="row m-0 p-0">
-                                {{product.shop}}
+
                             </div>
                             <div class="row m-0 p-0">
-                                <b> {{product.grocery_name}}</b>
+                                <b> {{product.title}}</b>
                             </div>
                         </td>
                         <td>
                             <div class="row m-0 p-0">
-                                <b>{{product.discPrice| currency}} </b>
+                                <b>{{product.amount| currency}} </b>
                             </div>
                             <div class="row m-0 p-0">
                                 <s>{{product.price | currency}}</s>
@@ -116,14 +117,13 @@
                 </ng-container>
             </tbody>
         </table>
-    
+
         <div>
             <span>sub total : {{cartSubTotal | currency}}</span>
         </div>
         <button (click)="checkout()">checkout</button>
-
     </ng-container>
-    <div class="container text-center" *ngIf="cartItems?.length<1">
+    <div class="container text-center" *ngIf="isEmpty">
         <h1>Cart is Empty</h1>
     </div>
 </div>

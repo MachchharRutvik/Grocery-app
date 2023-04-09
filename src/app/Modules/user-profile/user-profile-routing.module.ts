@@ -8,6 +8,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ManageAddressFormComponent } from './manage-address-form/manage-address-form.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 const routes: Routes = [
   {
@@ -28,11 +29,19 @@ const routes: Routes = [
         component: OrdersComponent,
       },
       {
+        path: 'orders/order-details/:id',
+        component: OrderDetailsComponent,
+      },
+      {
         path: 'manage-addresses',
         component: ManageAddressesComponent,
       },
       {
         path: 'manage-address-form',
+        component: ManageAddressFormComponent,
+      },
+      {
+        path: 'manage-address-form/:id',
         component: ManageAddressFormComponent,
       },
       {

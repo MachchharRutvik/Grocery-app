@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid">
   
     <div class="container d-flex mt-5">
 
@@ -40,4 +40,25 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
+
+
+<div class="container">
+    <div class="horizontal">
+        <hr class="divider">
+        <span class="text">Past Orders</span>
+        <hr class="divider">
+    </div>
+
+  <table class="table table-bordered ">
+    <tbody>
+      <tr *ngFor="let order of allOrder">
+        <th scope="row" class="color"> <i class="fa fa-truck"></i></th>
+        <td>Delivered</td>
+        <td>{{order.order_date}} </td>
+        <td>Order Amount: Rs{{order.paid_amount}}</td>
+        <td><button (click)="getOrderDetails(order.id)" class="btn btn-success">order Details</button></td>
+      </tr>
+
+    </tbody>
+  </table>

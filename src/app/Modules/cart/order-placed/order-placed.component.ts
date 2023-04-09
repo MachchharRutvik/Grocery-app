@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/Shared/Services/api/api.service';
+import { CartService } from 'src/app/Shared/Services/cart/cart.service';
 
 @Component({
   selector: 'app-order-placed',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderPlacedComponent implements OnInit {
 
-  constructor() { }
+  constructor(private cartService:CartService) { }
 
   ngOnInit(): void {
+    // this.cartService.emptyCart()
   }
 
 }

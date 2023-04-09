@@ -1,5 +1,6 @@
 export interface CartItem {
   id: number;
+  userId:number;
   grocery_name: string;
   price: number;
   shop:string;

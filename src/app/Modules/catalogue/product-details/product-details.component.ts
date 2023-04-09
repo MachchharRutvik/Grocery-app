@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ApiService } from 'src/app/Shared/Services/api/api.service';
 import { CartService } from 'src/app/Shared/Services/cart/cart.service';
 import { ProductsService } from 'src/app/Shared/Services/products/products.service';
 
@@ -9,6 +10,7 @@ import { ProductsService } from 'src/app/Shared/Services/products/products.servi
   styleUrls: ['./product-details.component.css'],
 })
 export class ProductDetailsComponent implements OnInit {
+  product_slug:any
   product: any;
   product_name: any;
   product_category: any;
@@ -19,7 +21,7 @@ export class ProductDetailsComponent implements OnInit {
   product_discount_price!:number;
   constructor(
     private route: ActivatedRoute,
-    private service: ProductsService,private cartService:CartService
+    private service: ProductsService,private cartService:CartService,private api:ApiService
   ) {}
 
   ngOnInit(): void {
@@ -27,27 +29,37 @@ export class ProductDetailsComponent implements OnInit {
       this.product_name = res['product_name'];
       this.product_id = Number(res['id']);
       this.product_category = res['product_category'];
+      this.product_slug = res['slug']
 
-      // this.product_img = this.product.imageUrl;
     });
-    this.product = this.service.getProductById(this.product_id);
-    console.log(this.product);
-    this.product_price = this.product.price
-    this.product_discount_price= this.product.discountPrice;
-    console.log("cartItems", this.cartService.getCartItems())
+
+     this.api.getProductById(this.product_id).subscribe((product:any)=>{
+      this.product = product.data
+      this.product.quantity = 1
+      console.log(product.data);
+      
+     },(err)=>{
+      console.log(err,"err");
+      
+     })
+    // this.product = this.service.getProductById(this.product_id);
+    // console.log(this.product);
+    // this.product_price = this.product.price
+    // this.product_discount_price= this.product.discountPrice;
+    // console.log("cartItems", this.cartService.getCartItems())
   }
   
-  countMinus() {
-    if (this.numberOfProduct >= 1) {
-      this.numberOfProduct = this.numberOfProduct - 1;
-      this.product_discount_price = (this.product.discountPrice * this.numberOfProduct)
-    }
-  }
-  countPlus() {
-    this.numberOfProduct = this.numberOfProduct + 1;
-    this.product_discount_price = this.product.discountPrice * this.numberOfProduct
+  // countMinus() {
+  //   if (this.numberOfProduct >= 1) {
+  //     this.numberOfProduct = this.numberOfProduct - 1;
+  //     this.product_discount_price = (this.product.discountPrice * this.numberOfProduct)
+  //   }
+  // }
+  // countPlus() {
+  //   this.numberOfProduct = this.numberOfProduct + 1;
+  //   this.product_discount_price = this.product.discountPrice * this.numberOfProduct
 
-  }
+  // }
   addToCart(product: any){
     this.cartService.addToCart(product);
   // this.cartService.cartBehaviour.next(this.cartService.getCartItems());

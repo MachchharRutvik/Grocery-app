@@ -97,16 +97,16 @@
     </div>
 </div> -->
 
-<div class="container">
+<div class="container"  *ngIf="product">
     <div class="container d-md-flex">
         <div class="image">
-            <img src="../../../../assets/peach.png" alt="" width="500px" height="500px">
+            <img src={{product_img}} alt="" width="500px" height="500px">
         </div>
         <div class="product-name">
-            <div class="row">{{product_name}}</div>
-            <div class="row">{{product_name}}</div>
-            <div class="row text-decoration-line-through">MRP:{{product_price}}</div>
-            <div class="row">Price:{{product_discount_price}}</div>
+            <div class="row">{{product.title}}</div>
+            <div class="row">{{product.short_description}}</div>
+            <div class="row text-decoration-line-through">MRP:{{product.amount}}</div>
+            <div class="row">Price:{{product.amount}}</div>
             <div class="d-flex ">
                 <div class="border p-2">
                     <span>{{product.quantity}}</span>
@@ -118,8 +118,10 @@
         </div>
     </div>
     <div class="about-product">
-        <div class="row"><h2>{{product_name}}</h2></div>
-        <div class="row m-2" >About the product</div>
-        <div class="row m-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam dolor consectetur modi laudantium labore alias sapiente molestiae blanditiis fugit reiciendis, assumenda cupiditate aliquid cum culpa in sequi, officia odio veritatis?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat ab ratione distinctio deserunt aperiam, quam molestias nostrum ullam quas perferendis.</div>
+        <div class="row">
+            <h2>{{product.short_description}}</h2>
+        </div>
+        <div class="row m-2">About the product</div>
+        <div class="row m-2">{{product.description}}</div>
     </div>
 </div>

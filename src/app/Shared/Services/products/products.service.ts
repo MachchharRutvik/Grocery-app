@@ -1,17 +1,24 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Grocery } from './../../Interfaces/groceryInterface';
+import { ApiService } from '../api/api.service';
+import { log } from 'console';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private api:ApiService) { 
+  
+  }
   categoriesName=[
     "All","Vegetables","Fruits","Coffee & teas","Meat"
   ]
-  
+  getProductsByCategoryId(id:number){
+    
+
+  }
   groceryList:Grocery[] = [
     {
       id: 1,
@@ -236,11 +243,14 @@ export class ProductsService {
       return this.groceryList;
     }
 
-    getCategories():string[] {
-      this.groceryList.forEach((grocery:Grocery)=>{
-        this.categories.add(grocery.category);
-      })
-      return Array.from(this.categories);
+    // getCategories():string[] {
+    //   this.groceryList.forEach((grocery:Grocery)=>{
+    //     this.categories.add(grocery.category);
+    //   })
+    //   return Array.from(this.categories);
+    // }
+    getCategories(){
+      return this.api.getCategoriesFromAPI()
     }
 
     getProductByCategories(category:string){
@@ -294,4 +304,10 @@ export class ProductsService {
     })
     return product;
     }
+
+  // getCategoriesFromAPI(){
+  //   this.http.get('https://a521-117-217-127-105.in.ngrok.io/api/v1/category/get-all-categories',).subscribe((res)=>console.log(res),(err)=>console.log(err)
+    
+  //   )
+  // }
 }

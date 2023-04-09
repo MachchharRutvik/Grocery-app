@@ -22,7 +22,5 @@ export class UserProfileComponent implements OnInit {
         this.headingText = array.pop();
       }
     });
-    // const token: any = localStorage.getItem('token');
-    this.api.getUserDetails().subscribe((res) => console.log(res));
   }
 }

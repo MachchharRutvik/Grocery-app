@@ -52,13 +52,6 @@ export class SignupComponent implements OnInit {
   }
   signUp() {
     const userDetails = this.signUpForm.getRawValue();
-    this.apiService.signUpApi(userDetails).subscribe(
-      (data: any) => {
-        console.log(data);
-        alert(data.message);
-        this.route.navigate(['login']);
-      },
-      (error) => console.log(error)
-    );
+    this.apiService.signUpApi(userDetails)
   }
 }

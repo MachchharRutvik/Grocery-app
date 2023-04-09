@@ -1,16 +1,126 @@
 {
   "cart": [
     {
-      "id": 2,
-      "grocery_name": "Chicken Breast",
-      "price": 5.99,
-      "shop": "XYZ Grocery",
-      "discPrice": 4.99,
-      "quantity": 1,
-      "quantityCount": 1,
-      "category": "Meat",
-      "subtotal": 4.99,
-      "imageUrl": "../assets/peach.png"
+      "userId": 46,
+      "cart": [
+        {
+          "id": 1,
+          "title": "product-1",
+          "amount": 60,
+          "quantityCount": 1,
+          "subtotal": 60
+        },
+        {
+          "id": 8,
+          "title": "product-8",
+          "amount": 200,
+          "quantityCount": 1,
+          "subtotal": 200
+        }
+      ],
+      "id": 1
+    },
+    {
+      "userId": 49,
+      "cart": [
+        {
+          "id": 5,
+          "title": "product-5",
+          "amount": 200,
+          "quantityCount": 2,
+          "subtotal": 400
+        },
+        {
+          "id": 9,
+          "title": "product-9",
+          "amount": 260,
+          "quantityCount": 1,
+          "subtotal": 260
+        },
+        {
+          "id": 10,
+          "title": "product-10",
+          "amount": 110,
+          "quantityCount": 2,
+          "subtotal": 220
+        },
+        {
+          "id": 3,
+          "title": "product-3",
+          "amount": 70,
+          "quantityCount": 1,
+          "subtotal": 70
+        }
+      ],
+      "id": 2
+    },
+    {
+      "userId": 47,
+      "cart": [
+        {
+          "id": 1,
+          "title": "product-1",
+          "amount": 60,
+          "quantityCount": 1,
+          "subtotal": 60
+        },
+        {
+          "id": 8,
+          "title": "product-8",
+          "amount": 200,
+          "quantityCount": 1,
+          "subtotal": 200
+        },
+        {
+          "id": 9,
+          "title": "product-9",
+          "amount": 260,
+          "quantityCount": 1,
+          "subtotal": 260
+        },
+        {
+          "id": 10,
+          "title": "product-10",
+          "amount": 110,
+          "quantityCount": 1,
+          "subtotal": 110
+        }
+      ],
+      "id": 3
+    },
+    {
+      "userId": 48,
+      "cart": [
+        {
+          "id": 1,
+          "title": "product-1",
+          "amount": 60,
+          "quantityCount": 1,
+          "subtotal": 60
+        },
+        {
+          "id": 8,
+          "title": "product-8",
+          "amount": 200,
+          "quantityCount": 1,
+          "subtotal": 200
+        },
+        {
+          "id": 9,
+          "title": "product-9",
+          "amount": 260,
+          "quantityCount": 1,
+          "subtotal": 260
+        },
+        {
+          "id": 10,
+          "title": "product-10",
+          "amount": 110,
+          "quantityCount": 1,
+          "subtotal": 110
+        }
+      ],
+      "id": 4
     }
   ]
 }
