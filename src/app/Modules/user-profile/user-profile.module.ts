@@ -9,16 +9,19 @@ import { SidebarLinksComponent } from './sidebar-links/sidebar-links.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ManageAddressFormComponent } from './manage-address-form/manage-address-form.component';
+import { NgxSpinnerModule } from "ngx-spinner";
+
 
 @NgModule({
   declarations: [
-    UserProfileComponent,SidebarLinksComponent, LoginComponent, SignupComponent, ManageAddressFormComponent
+    UserProfileComponent, SidebarLinksComponent, LoginComponent, SignupComponent, ManageAddressFormComponent
   ],
   imports: [
     CommonModule,
     UserProfileRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxSpinnerModule
   ],
 })
-export class UserProfileModule {}
+export class UserProfileModule { }

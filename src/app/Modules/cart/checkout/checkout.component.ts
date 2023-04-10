@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../../../Shared/Services/cart/cart.service';
 import { ApiService } from 'src/app/Shared/Services/api/api.service';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-checkout',
@@ -12,7 +13,8 @@ export class CheckoutComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private router: Router,
-    private api: ApiService
+    private api: ApiService,
+    private spinner:NgxSpinnerService
   ) {}
   grandTotal = 0;
   userAddresses: any;
@@ -30,21 +32,30 @@ export class CheckoutComponent implements OnInit {
       this.userAddresses = res.data.addresses;
     });
     this.api.getCartData().subscribe((res) => {
-      console.log(res);
-      res.map((res: any) => {
+      let cart: any = res;
+      let userMatchedCart = cart.filter((res: any) => res.userId == this.api.userId);
+      // let cartId = userMatchedCart[0].id;
+      let cartArray = userMatchedCart[0].cart
+      console.log(res,"checkout");
+      console.log(cartArray,"cartArray");
+      cartArray.map((res: any) => {
         this.product = {
-          product_id: res.id,
-          product_name: res.grocery_name,
-          qty: res.quantity,
-          product_amount: res.price,
+          product_id: cartArray[0].id,
+          product_name: cartArray[0].title,
+          qty: cartArray[0].quantityCount,
+          product_amount: cartArray[0].amount,
           discount_type: 2,
           discount_amount: 1,
         };
         this.cartData.push(this.product);
+        console.log(this.cartData, 'this.cartdaratara');
       });
 
-      console.log(this.cartData, 'this.cartdaratara');
     });
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1500);
   }
   cancelOrder() {
     if (confirm('Are you sure you want to cancel the order?')) {
@@ -78,24 +89,26 @@ export class CheckoutComponent implements OnInit {
           order_products: this.cartData,
         };
         console.log(this.orderObj, 'this.orderobj');
-        this.api
-          .addOrder(
-            this.orderObj,
-            this.billing_address_id,
-            this.delivery_address_id,
-            this.orderStatus,
-            this.paymentStatus
-          )
-          .subscribe(
-            (res) => {
-              console.log('response', res);
-            },
-            (err) => {
-              console.log('errr', err);
-            }
-          );
-        this.router.navigate(['/cart/myCart/checkout/order-placed']);
+       
       });
+      this.api
+      .addOrder(
+        this.orderObj,
+        this.billing_address_id,
+        this.delivery_address_id,
+        this.orderStatus,
+        this.paymentStatus
+      )
+      .subscribe(
+        (res) => {
+          console.log('response', res);
+        },
+        (err) => {
+          console.log('errr', err);
+        }
+      );
+      alert("are you sure you want to place order?")
+    this.router.navigate(['/cart/myCart/checkout/order-placed']);
     } else {
       alert('please select delivery address');
     }

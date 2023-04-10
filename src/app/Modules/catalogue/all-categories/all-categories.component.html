@@ -1,0 +1,9 @@
+<div class="container d-flex flex-wrap">
+<div class="card m-3" style="width: 18rem;" *ngFor="let category of allCategories">
+    <div class="card-body">
+        <a [routerLink]="['../categories',category.slug]" class="text-decoration-none text-black">
+      <h5 class="card-title">{{category.title}}</h5>
+    </a>
+    </div>
+  </div>
+</div>

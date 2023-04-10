@@ -12,7 +12,7 @@ export class OrderPlacedComponent implements OnInit {
   constructor(private cartService:CartService) { }
 
   ngOnInit(): void {
-    // this.cartService.emptyCart()
+    this.cartService.emptyCart()
   }
 
 }

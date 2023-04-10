@@ -178,12 +178,21 @@ getCartTotal(){
     })
     return this.cartTotal
 }
-//  emptyCart(){
-//   this.api.emptyCart(this.cartItems).subscribe((res)=>{
-//     console.log("empty cart",res)
-//   },
-//   (err)=>{
-//     console.log("error",err)
-//   })
-//  }
+ emptyCart(){
+  this.http.get('http://localhost:3000/cart/').subscribe((res) => {
+    let cart: any = res;
+    let userMatchedCart = cart.filter((res: any) => res.userId == this.api.userId);
+    let cartId = userMatchedCart[0].id;
+    let userCart = {
+      userId: this.api.userId,
+      cart:[]
+    };
+    this.cartDataSubject.next([])
+    let total = this.getCartTotal()
+    this.http.put('http://localhost:3000/cart/' + cartId, userCart).subscribe(
+      (res) => console.log(res, 'cart data updated'),
+      (err) => console.log(err, 'cart data error')
+    );
+ })
+}
 }

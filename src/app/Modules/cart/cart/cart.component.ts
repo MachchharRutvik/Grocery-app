@@ -6,6 +6,7 @@ import { CartService } from 'src/app/Shared/Services/cart/cart.service';
 import { CartItem } from '../../../Shared/Interfaces/cartItem';
 import { HttpClient } from '@angular/common/http';
 import { isEmpty } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-cart',
@@ -18,10 +19,12 @@ export class CartComponent implements OnInit {
     private cartService: CartService,
     private api: ApiService,
     private router: Router,
+    private spinner:NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
+    
     this.api.getCartData().subscribe((res: any) => {
       let cart: any = res
       let userMatchedCart = cart.filter((res: any) => res.userId == this.api.userId)
@@ -48,19 +51,12 @@ export class CartComponent implements OnInit {
             console.log("hi", this.isEmpty)
           }
         })
-
       }
-
-      // this.cartItems = res;
-      // console.log(this.cartItems, 'thiscartitems');
-      // console.log('hello', this.cartSubTotal);
-      // this.categoriesOfCartItems = this.getCategoryByProducts();
-      // console.log('getCategoryByProducts', this.categoriesOfCartItems);
-      // this.productsByCategory = this.getProductsByCategory();
-      // console.log('getProductsByCategory', this.productsByCategory);
-      // this.getTotal();
     });
-
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1500);
   }
   isEmpty = false
   cartId: any

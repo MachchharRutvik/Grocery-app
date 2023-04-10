@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/Shared/Services/api/api.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { ApiService } from 'src/app/Shared/Services/api/api.service';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  constructor(private fb: FormBuilder, private api: ApiService) {}
+  constructor(private fb: FormBuilder, private api: ApiService,private spinner:NgxSpinnerService) {}
   profileForm!: FormGroup;
   formValues: any;
   token: any;
@@ -41,6 +42,10 @@ export class ProfileComponent implements OnInit {
         this.profileForm.patchValue(this.userDetails);
       });
     }
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1500);
   }
 
   get firstName() {

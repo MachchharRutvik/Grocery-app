@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/Shared/Services/api/api.service';
 
 @Component({
@@ -11,7 +12,8 @@ export class UserProfileComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private api: ApiService
+    private api: ApiService,
+    private spinner:NgxSpinnerService
   ) {}
   headingText: any = 'profile';
   ngOnInit(): void {
@@ -22,5 +24,9 @@ export class UserProfileComponent implements OnInit {
         this.headingText = array.pop();
       }
     });
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1500);
   }
 }

@@ -17,7 +17,9 @@ export const environment = {
   productByIdURL:'/product/get-product-by-id',
   addOrderURL:'/order/add-order',
   getOrdersURL:'/customer/get-customer-all-orders',
-  getOrderDetailByIdURL:'/order/get-order-by-id'
+  getOrderDetailByIdURL:'/order/get-order-by-id',
+  getAllProductsURL:'/product/get-all-products'
+
 
 
 

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseURL:"https://a521-117-217-127-105.in.ngrok.io/api/v1",
+  baseURL:"https://1f85-117-217-127-105.ngrok-free.app/api/v1",
   // baseURL:"https://e099-117-217-127-105.in.ngrok.io/api/v1",
   registerURL:"/customer/register",
   loginURL:"/customer/login",
@@ -20,7 +20,8 @@ export const environment = {
   productByIdURL:'/product/get-product-by-id',
   addOrderURL:'/order/add-order',
   getOrdersURL:'/customer/get-customer-all-orders',
-  getOrderDetailByIdURL:'/order/get-order-by-id'
+  getOrderDetailByIdURL:'/order/get-order-by-id',
+  getAllProductsURL:'/product/get-all-products'
   
 };
 

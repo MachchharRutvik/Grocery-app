@@ -1,4 +1,6 @@
+<!-- <ngx-spinner type="ball-scale-multiple"></ngx-spinner> -->
 <div class="container-fluid" *ngIf="products">
+    
     <div class="container-fluid center">
         <h1>{{groceryCategorySlug}}</h1>
     </div>
@@ -14,21 +16,22 @@
         </div>
 
     </div>
+    
     <div class="container">
         <ng-container *ngIf="products && products.length>0">
         <div class="card " *ngFor="let product of products" >
-            <div (click)="productDetails(product.product)">  
+            <div (click)="productDetails(product)">  
             <img src="{{product.imageUrl}}" class="card-img-top image" alt="category-1">
             </div>
             <div class="card-body">
-                <span class="card-text category">{{product.category}}</span>
-                <h4>{{product.product.title}}</h4>
+                <!-- <span class="card-text category">{{product.category_id}}</span> -->
+                <h4>{{product.title}}</h4>
                 <span>☆☆☆☆☆(4)</span>
-                <span class="card-text storeName">By {{product.product.short_description}}</span>
+                <span class="card-text storeName">By {{product.short_description}}</span>
                 <div>
-                    <span class="discountPrice card-text">{{product.product.amount | currency}}</span>
-                    <span class="price card-text">{{product.product.amount | currency}}</span>
-                    <button class="btn  addToCart" (click)="addToCart(product.product)"><i class="fa fa-shopping-cart "></i>Add</button>
+                    <span class="discountPrice card-text">{{product.amount | currency}}</span>
+                    <span class="price card-text">{{product.amount | currency}}</span>
+                    <button class="btn  addToCart" (click)="addToCart(product)"><i class="fa fa-shopping-cart "></i>Add</button>
                 </div>
             </div>
         </div>
@@ -36,5 +39,8 @@
         <div *ngIf="!(products && products.length>0)" class="row offset-10 col-10">
             <h1 >Products not Found</h1>
         </div>
+        <ngx-spinner type="ball-clip-rotate-multiple">
+            <img src="../assets/cart-spinner.gif " alt="" srcset="" width="100px" height="100px">
+          </ngx-spinner>
     </div>
 </div>

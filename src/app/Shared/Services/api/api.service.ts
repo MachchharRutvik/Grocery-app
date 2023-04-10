@@ -239,6 +239,15 @@ userId:any
       );
     });
   }
+  getAllProducts(){
+    let allProductsURL = environment.getAllProductsURL
+    return this.http.get(this.baseURL + allProductsURL,{
+      headers: new HttpHeaders({
+        'ngrok-skip-browser-warning': 'skip-browser-warning',
+        'Access-Control-Allow-Origin': '*',
+      }),
+    })
+  }
 
   addOrder(
     body: any,

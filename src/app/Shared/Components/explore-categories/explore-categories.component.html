@@ -8,13 +8,12 @@
 </div>
 <div class="swiper-container" style="overflow: hidden;">
     <div class="swiper-wrapper">
-        <div class="swiper-slide" *ngFor="let product of categories" >
+        <div class="swiper-slide" *ngFor="let category of categories" >
             <div class="Items-container">
-                <a [routerLink]="['./catalogue/categories',product.slug]">
+                <a [routerLink]="['./catalogue/categories',category.slug]">
                 <div class="box" >
-                    <!-- <img [src]="product.imageUrl" alt=""> -->
-                    <h5>{{product.title}}</h5>
-                    <span>{{'count'}} Items</span>
+                    <h3>{{category.title}}</h3>
+                    <span>{{category.products}} Items</span>
                 </div></a>
             </div>
         </div>

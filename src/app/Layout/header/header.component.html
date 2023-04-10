@@ -52,7 +52,7 @@
       </a>
     </div>
     <div class="searchPart d-flex ">
-      <select name="categories" (change)="onSelectCategory($event)"
+      <select name="categories"
         class="form-select border border-end-0 rounded-0 categoriesPart">
         <option value="">Categories</option>
         <option value="option1" *ngFor="let i of categories" value={{i.title}}>{{i.title}}</option>
@@ -99,8 +99,8 @@
     </div>
   </div>
   <div class="secondRow d-flex container mt-3 mb-3">
-    <div class="leftPart "> <a routerLink="./catalogue/categories/All"><button
-          class="btn btn-success categories-btn rounded-0" (click)="allCategories()">Browse all categories</button></a>
+    <div class="leftPart "> <button
+          class="btn btn-success categories-btn rounded-0" (click)="allCategories()">Browse all categories</button>
     </div>
     <div class="rightPart d-flex ">
       <i class="fa fa-phone"></i>

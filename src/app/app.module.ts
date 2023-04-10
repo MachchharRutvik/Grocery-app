@@ -22,6 +22,7 @@ import { ManageAddressesComponent } from './Modules/user-profile/manage-addresse
 import { OrderDetailsComponent } from './Modules/user-profile/order-details/order-details.component';
 import { AuthInterceptor } from './Shared/Services/auth.interceptor';
 import { FeaturesComponent } from './Shared/Components/features/features.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -33,7 +34,9 @@ import { FeaturesComponent } from './Shared/Components/features/features.compone
   imports: [
     BrowserModule,
     AppRoutingModule,CommonModule,FormsModule,
-    HttpClientModule,ReactiveFormsModule
+    HttpClientModule,ReactiveFormsModule,
+    NgxSpinnerModule
+
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]

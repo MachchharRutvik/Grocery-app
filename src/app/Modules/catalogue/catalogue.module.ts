@@ -7,6 +7,8 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { FormsModule } from '@angular/forms';
 import { CartComponent } from '../cart/cart/cart.component';
+import { AllCategoriesComponent } from './all-categories/all-categories.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -14,12 +16,13 @@ import { CartComponent } from '../cart/cart/cart.component';
     CategoryComponent,
     ProductListComponent,
     ProductDetailsComponent,
-    CartComponent
+    CartComponent,
+    AllCategoriesComponent
   ],
   imports: [
     CommonModule,
     CatalogueRoutingModule,
-    FormsModule
+    FormsModule,NgxSpinnerModule
   ],exports:[
     CategoryComponent
   ]
