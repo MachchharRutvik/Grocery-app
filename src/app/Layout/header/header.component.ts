@@ -8,12 +8,15 @@ import { Router } from '@angular/router';
 import { CartService } from '../../Shared/Services/cart/cart.service';
 import { ApiService } from 'src/app/Shared/Services/api/api.service';
 import { HttpClient } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
+
 
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
+  providers:[MessageService]
 })
 export class HeaderComponent implements OnInit, DoCheck {
   constructor(
@@ -21,7 +24,8 @@ export class HeaderComponent implements OnInit, DoCheck {
     private router: Router,
     private cartService: CartService,
     private api: ApiService,
-    private http: HttpClient
+    private http: HttpClient,
+    private messageService:MessageService
   ) {
 
   }
@@ -103,6 +107,8 @@ export class HeaderComponent implements OnInit, DoCheck {
     this.cartService.cartSubTotal.next(0);
     this.userDetails = ''
     this.router.navigate(['/']);
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Logout successful' });
+    window.location.reload();
   }
   allCategories() {
     this.router.navigate(['catalogue/all-categories'])

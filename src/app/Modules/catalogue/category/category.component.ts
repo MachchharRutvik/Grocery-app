@@ -8,11 +8,14 @@ import { CartItem } from 'src/app/Shared/Interfaces/cartItem';
 import { ApiService } from 'src/app/Shared/Services/api/api.service';
 import { HttpClient } from '@angular/common/http';
 import { NgxSpinnerService } from "ngx-spinner";
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css'],
+  providers: [MessageService]
 })
 export class CategoryComponent implements OnInit {
   products: any 
@@ -28,18 +31,17 @@ export class CategoryComponent implements OnInit {
     private route: ActivatedRoute,
     private cartService: CartService,
     private router: Router,
-    private api: ApiService, private http: HttpClient,private spinner: NgxSpinnerService
+    private api: ApiService, private http: HttpClient,private spinner: NgxSpinnerService,private messageService: MessageService
   ) {
 
   }
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    // this.spinner.show();
-
-    // setTimeout(() => {
-    //   /** spinner ends after 5 seconds */
-    //   this.spinner.hide();
-    // }, 5000);
+  //  console.log(this.toastr,"toastr")
+  this.spinner.show();
+  setTimeout(() => {
+    this.spinner.hide();
+  }, 1500);
     this.route.params.subscribe((params) => {
       this.groceryCategorySlug = params['category'];
       let categories;
@@ -59,13 +61,14 @@ export class CategoryComponent implements OnInit {
           }
         });
       });
+   
 
       this.searchWord = params['value'];
       if (this.searchWord) {
-        console.log("in category component", this.searchWord)
+        // console.log("in category component", this.searchWord)
         this.api.getAllProducts().subscribe((res: any) => {
           let allProducts = res
-          console.log(allProducts,"allproducts")
+          // console.log(allProducts,"allproducts")
           this.products = allProducts.data.filter((product: any) => {
              return product.title.toLowerCase().indexOf(this.searchWord?.toLowerCase()) != -1
           })
@@ -75,10 +78,7 @@ export class CategoryComponent implements OnInit {
         })
       }
     });
-    this.spinner.show();
-    setTimeout(() => {
-      this.spinner.hide();
-    }, 1500);
+  
   }
   // getSearchCategoryData(category: string, word: string) {
   //   this.products = this.productService.getProductsBySearchAndCategory(
@@ -158,6 +158,9 @@ export class CategoryComponent implements OnInit {
   addToCart(product: any) {
     this.cartService.addToCart(product)
     this.cartService.getCartTotal()
+    this.show();
+    
+
     // this.http.get('http://localhost:3000/cart/').subscribe((res) => {
     //   let cart: any = res;
     //   let userMatchedCart = cart.filter((res: any) => res.userId == this.api.userId);
@@ -197,4 +200,8 @@ export class CategoryComponent implements OnInit {
       product.slug, product.id
     ]);
   }
+  show() {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Item added Successfully' });
+}
+
 }

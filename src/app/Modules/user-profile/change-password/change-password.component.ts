@@ -2,15 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { passwordValidator } from 'src/app/Shared/password.validator';
 import { ApiService } from 'src/app/Shared/Services/api/api.service';
+import { MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.css']
+  styleUrls: ['./change-password.component.css'],
+  providers: [MessageService]
+
 })
 export class ChangePasswordComponent implements OnInit {
 
-  constructor(private api:ApiService,private fb:FormBuilder) { 
+  constructor(private api:ApiService,private fb:FormBuilder,private messageService:MessageService) { 
     
   }
   
@@ -40,14 +44,19 @@ export class ChangePasswordComponent implements OnInit {
       }
       console.log("password object",passwords);
       this.api.changePasswordApi(passwords).subscribe((res:any)=>{
-        alert("Password Changed Successfully");
+        this.showPasswordChanged()
       },
       (err)=>{
         console.log(err);
-        
-        alert(err.error.message);
+        this.showPasswordError(err.error.message)
+        // alert(err.error.message);
       });
       
     }
-
+    showPasswordChanged(){
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Password Changed' });
+    }
+    showPasswordError(message:any){
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
+    }
 }

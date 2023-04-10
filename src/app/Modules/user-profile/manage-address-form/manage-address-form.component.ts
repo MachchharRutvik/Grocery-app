@@ -2,38 +2,41 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { log } from 'console';
+import { MessageService } from 'primeng/api';
 import { ApiService } from 'src/app/Shared/Services/api/api.service';
 
 @Component({
   selector: 'app-manage-address-form',
   templateUrl: './manage-address-form.component.html',
   styleUrls: ['./manage-address-form.component.css'],
+  providers: [MessageService]
+
 })
 export class ManageAddressFormComponent implements OnInit {
-  constructor(private fb: FormBuilder,private router:Router,private api:ApiService,private route:ActivatedRoute) {}
+  constructor(private fb: FormBuilder, private router: Router, private api: ApiService, private route: ActivatedRoute, private messageService:MessageService) { }
   selectedState: any;
   citiesOfSelectedState: any;
-  addressId:any
+  addressId: any
   ngOnInit(): void {
     console.log("hello form");
-    
-   this.addressId = this.route.snapshot.paramMap.get('id');
-   if(this.addressId){
-     console.log(this.addressId);
-     this.api.getUserDetails().subscribe((res)=>{
-      const userAddresses = res.data.addresses
-      console.log(userAddresses,"useraddress");
 
-      if(userAddresses){
-        const existingAddress = userAddresses.find((res:any)=>{
-          return res.id == this.addressId
-        })
-        console.log("existingAddewaa",existingAddress);
-        this.manageAddressForm.patchValue(existingAddress);
-        
-      }
-     })
-   }
+    this.addressId = this.route.snapshot.paramMap.get('id');
+    if (this.addressId) {
+      console.log(this.addressId);
+      this.api.getUserDetails().subscribe((res) => {
+        const userAddresses = res.data.addresses
+        console.log(userAddresses, "useraddress");
+
+        if (userAddresses) {
+          const existingAddress = userAddresses.find((res: any) => {
+            return res.id == this.addressId
+          })
+          console.log("existingAddewaa", existingAddress);
+          this.manageAddressForm.patchValue(existingAddress);
+
+        }
+      })
+    }
   }
   states = [
     { name: 'Andaman and Nicobar Islands', cities: ['Port Blair'] },
@@ -312,7 +315,7 @@ export class ManageAddressFormComponent implements OnInit {
     city: ['', Validators.required],
     state: ['', Validators.required],
     country: ['', Validators.required],
-    postal_code: ['', [Validators.required,Validators.minLength(6),Validators.maxLength(6)]],
+    postal_code: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
     landmark: ['', Validators.required],
     tag: ['', Validators.required],
   });
@@ -353,22 +356,28 @@ export class ManageAddressFormComponent implements OnInit {
     });
     this.citiesOfSelectedState = this.citiesOfSelectedState.cities;
   }
-  addAddress(){
+  addAddress() {
     const formValues = this.manageAddressForm.getRawValue();
-    console.log("formvalues",formValues)
-    this.api.addAddress(formValues).subscribe((res)=>{
-      console.log("add address res",res);
-      alert("Address added successfully");
+    console.log("formvalues", formValues)
+    this.api.addAddress(formValues).subscribe((res) => {
+      this.showAddressAdded()
+      console.log("add address res", res);
       this.router.navigate(['user-profile/manage-addresses'])
-    },(err)=>{
-      console.log("add address err",err);
+    }, (err) => {
+      console.log("add address err", err);
+      this.showAddressError(err.error.message)
     });
   }
-  updateAddress(){
+  updateAddress() {
     const updatedValues = this.manageAddressForm.getRawValue()
-    console.log(updatedValues,"updatedValues");
-    this.api.updateAddress(this.addressId,updatedValues)
-    
+    console.log(updatedValues, "updatedValues");
+    this.api.updateAddress(this.addressId, updatedValues)
+    this.showAddressAdded()
   }
-
+  showAddressAdded() {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Profile updated' });
+  }
+  showAddressError(message: any) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
+  }
 }

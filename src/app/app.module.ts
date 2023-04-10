@@ -23,22 +23,28 @@ import { OrderDetailsComponent } from './Modules/user-profile/order-details/orde
 import { AuthInterceptor } from './Shared/Services/auth.interceptor';
 import { FeaturesComponent } from './Shared/Components/features/features.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastModule } from 'primeng/toast';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    SliderComponent, ExploreCategoriesComponent, FeaturedProductsComponent, TrendinItemsComponent, HomeComponent, CheckoutComponent, OrderPlacedComponent, ProfileComponent, ChangePasswordComponent, OrdersComponent, ManageAddressesComponent,OrderDetailsComponent, FeaturesComponent
+    SliderComponent, ExploreCategoriesComponent, FeaturedProductsComponent, TrendinItemsComponent, HomeComponent, CheckoutComponent, OrderPlacedComponent, ProfileComponent, ChangePasswordComponent, OrdersComponent, ManageAddressesComponent, OrderDetailsComponent, FeaturesComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,CommonModule,FormsModule,
-    HttpClientModule,ReactiveFormsModule,
-    NgxSpinnerModule
+    AppRoutingModule, CommonModule, FormsModule,
+    HttpClientModule, ReactiveFormsModule,
+    NgxSpinnerModule,
+    BrowserAnimationsModule,ToastModule
+  
+   
 
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

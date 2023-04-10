@@ -19,14 +19,11 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        console.log('Navigation ended successfully:', event.url);
+        // console.log('Navigation ended successfully:', event.url);
         const array = event.url.split('/');
         this.headingText = array.pop();
       }
     });
-    this.spinner.show();
-    setTimeout(() => {
-      this.spinner.hide();
-    }, 1500);
+
   }
 }

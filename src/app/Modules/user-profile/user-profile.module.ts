@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ManageAddressFormComponent } from './manage-address-form/manage-address-form.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { ToastModule } from 'primeng/toast';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     UserProfileRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,ToastModule
   ],
 })
 export class UserProfileModule { }

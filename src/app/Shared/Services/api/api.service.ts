@@ -82,6 +82,7 @@ userId:any
             }
           }, (err) => console.log(err))
         })
+        alert("Login successful")
         this.route.navigate(['home']);
       },
       (error) => alert(error.error.message)

@@ -5,7 +5,9 @@ import { environment } from 'src/environments/environment';
 import { CartItem } from '../../Interfaces/cartItem';
 import { ApiService } from '../api/api.service';
 import { ProductsService } from '../products/products.service';
-import { log } from 'console';
+import { ToastrService } from 'ngx-toastr';
+import { MessageService } from 'primeng/api';
+
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +26,7 @@ export class CartService {
   constructor(
     private http: HttpClient,
     private productService: ProductsService,
-    private api: ApiService
+    private api: ApiService,
   ) {
     // this.api.getCartData().subscribe((res) => {
     //   this.cart = res;
@@ -92,12 +94,15 @@ export class CartService {
       };
       this.cartDataSubject.next(cartArray)
       this.http.put('http://localhost:3000/cart/' + cartId, userCart).subscribe(
-        (res) => console.log(res, 'cart data updated'),
+        (res) => {
+          
+          console.log(res, 'cart data updated')
+        },
         (err) => console.log(err, 'cart data error')
       );
     });
   }
-
+ 
   getCartItems() {
     this.api.getCartData().subscribe((res) => {
       this.cart = res;

@@ -9,7 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { CartComponent } from '../cart/cart/cart.component';
 import { AllCategoriesComponent } from './all-categories/all-categories.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
   imports: [
     CommonModule,
     CatalogueRoutingModule,
-    FormsModule,NgxSpinnerModule
+    FormsModule,NgxSpinnerModule,ToastModule
   ],exports:[
     CategoryComponent
   ]

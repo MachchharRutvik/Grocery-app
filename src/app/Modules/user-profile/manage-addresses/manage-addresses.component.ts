@@ -2,15 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Address } from 'src/app/Shared/Interfaces/address';
 import { ApiService } from 'src/app/Shared/Services/api/api.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-manage-addresses',
   templateUrl: './manage-addresses.component.html',
-  styleUrls: ['./manage-addresses.component.css']
+  styleUrls: ['./manage-addresses.component.css'],
+  providers: [MessageService]
+
 })
 export class ManageAddressesComponent implements OnInit {
 
-  constructor(private router:Router,private api:ApiService) { }
+  constructor(private router:Router,private api:ApiService,private messageService:MessageService) { }
 
   ngOnInit(): void {
     this.api.getUserDetails().subscribe((res)=>{
@@ -35,6 +38,7 @@ export class ManageAddressesComponent implements OnInit {
       let encryptedId = res.data
       this.api.deleteAddress(encryptedId).subscribe((res)=>{
         console.log(res);
+        this.showAddressDeleted()
         const index = this.customerAddresses.indexOf(address);
         if(index>=0){
          this.customerAddresses.splice(index,1);
@@ -43,6 +47,7 @@ export class ManageAddressesComponent implements OnInit {
 
     },(err)=>{
 console.log(err);
+      this.showAddressDeletedErr()
     })
   }
   updateAddress(address:Address){
@@ -66,5 +71,11 @@ console.log(err);
   //   })
 
   // }
+  showAddressDeleted(){
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Address Deleted successfully' });
+  }
+  showAddressDeletedErr(){
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error Deleting Address' });
+  }
 
 }

@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MessageService } from 'primeng/api';
 import { ApiService } from 'src/app/Shared/Services/api/api.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
+  providers: [MessageService]
+
 })
 export class ProfileComponent implements OnInit {
-  constructor(private fb: FormBuilder, private api: ApiService,private spinner:NgxSpinnerService) {}
+  constructor(private fb: FormBuilder, private api: ApiService,private spinner:NgxSpinnerService,private messageService:MessageService) {}
   profileForm!: FormGroup;
   formValues: any;
   token: any;
@@ -78,11 +81,18 @@ export class ProfileComponent implements OnInit {
     this.api.updateUserDetails(updateFields).subscribe(
       (res: any) => {
         console.log('updated', res);
-        alert(res.message);
+        this.showProfileUpdated()
       },
       (err) => {
         console.log('error', err);
+        this.showProfileError(err.error.message)
       }
     );
   }
+  showProfileUpdated() {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Profile updated' });
+}
+showProfileError(message:any){
+  this.messageService.add({ severity: 'error', summary: 'Error', detail: message});
+}
 }
