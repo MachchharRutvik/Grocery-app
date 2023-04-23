@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { CartItem } from '../../Interfaces/cartItem';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { cart } from '../../Interfaces/cart';
@@ -13,19 +12,23 @@ import { cart } from '../../Interfaces/cart';
 export class ApiService {
   quantityCount: any;
   constructor(private route: Router, private http: HttpClient) {
-    this.getUserDetails().subscribe((res) => {
-      this.userId = res.data.id;
-      console.log(this.userId,"usserID");
-    });
+    if(localStorage.getItem('token')){
+      this.getUserDetails().subscribe((res) => {
+        this.userId = res.data.id;
+        console.log(this.userId, "usserID");
+      });
+    }
   }
-  ngOnInit(){
-    this.getUserDetails().subscribe((res) => {
-      this.userId = res.data.id;
-      console.log(this.userId,"usserID");
-    });
+  ngOnInit() {
+    if(localStorage.getItem('token')){
+      this.getUserDetails().subscribe((res) => {
+        this.userId = res.data.id;
+        console.log(this.userId, "usserID");
+      });
+    }
   }
   cart: { [key: string]: cart[] } = {}
-userId:any
+  userId: any
   baseURL = environment.baseURL;
   userDetailsURL = environment.userDetailsURL;
   changePasswordURL = environment.changePasswordURL;
@@ -43,73 +46,40 @@ userId:any
 
   signUpApi(user: any) {
     let signUpURL = environment.registerURL;
-    console.log('user', user);
-    this.http.post(this.baseURL + signUpURL, user).subscribe(
-      (data: any) => {
-        localStorage.setItem('customerId', data.data.id);
-
-        alert(data.message);
-        this.route.navigate(['login']);
-      },
-      (error) => console.log(error)
-    );
+    try {
+      return this.http.post(this.baseURL + signUpURL, user)
+    } catch (error) {
+      return throwError(() => new Error(error))
+    }
   }
   loginApi(user: any) {
     let loginURL = environment.loginURL;
-    let userId: any;
-    this.http.post(this.baseURL + loginURL, user).subscribe(
-
-      (data: any) => {
-        localStorage.setItem('token', data.data.token);
-        this.getUserDetails().subscribe((res) => {
-          console.log(res)
-          userId = res.data.id
-          let cart:any;
-         this.http.get('http://localhost:3000/cart/').subscribe((res) => {
-             cart = res
-            console.log(res,"getcart");
-            let hasUserId = cart.some((res:any)=>res.userId ==userId)
-            console.log(hasUserId,"hasuserid")
-            if(hasUserId){
-              this.route.navigate(['']);
-            }
-            else{
-              let userObj = {
-                userId: userId,
-                cart: []
-              }
-              this.addToCartApi(userObj).subscribe((res) => console.log(res), (err) => console.log(err))
-            }
-          }, (err) => console.log(err))
-        })
-        alert("Login successful")
-        this.route.navigate(['home']);
-      },
-      (error) => alert(error.error.message)
-    );
+    try {
+      return this.http.post(this.baseURL + loginURL, user)
+    } catch (error) {
+      return throwError(() => new Error(error));
+    }
   }
-  // { headers: new HttpHeaders({ 'ngrok-skip-browser-warning': 'skip-browser-warning', 'Access-Control-Allow-Origin': '*' }
   getUserDetails() {
-    return this.http.get<any>(this.baseURL + this.userDetailsURL, {
-      headers: new HttpHeaders({
-        'ngrok-skip-browser-warning': 'skip-browser-warning',
-        'Access-Control-Allow-Origin': '*',
-      }),
-    });
-  }
+    try {
+      return this.http.get<any>(this.baseURL + this.userDetailsURL, {
+        headers: new HttpHeaders({
+          'ngrok-skip-browser-warning': 'skip-browser-warning',
+          'Access-Control-Allow-Origin': '*',
+        }),
+      });
 
-  // getUserDetails(){
-  //   // const headers = {'Authorization': 'Bearer ' + token}
-  //   return this.http.get("https://e099-117-217-127-105.in.ngrok.io/api/v1/customer/customer-details?=");
-  // }
-  addToCartApi(product: any) {
-    return this.http.post('http://localhost:3000/cart', product);
-  }
-  getCartData() {
-    return this.http.get<any>('http://localhost:3000/cart');
+    } catch (error) {
+      return throwError(() => new Error(error))
+    }
   }
   changePasswordApi(passwords: { oldPassword: any; newPassword: any }) {
-    return this.http.put(this.baseURL + this.changePasswordURL, passwords);
+    try {
+      return this.http.put(this.baseURL + this.changePasswordURL, passwords);
+
+    } catch (error) {
+      return throwError(() => new Error(error))
+    }
   }
   updateUserDetails(userDetails: {
     first_name: any;
@@ -119,39 +89,33 @@ userId:any
     secondary_mobile_number: any;
     secondary_email: any;
   }) {
-    return this.http.put(this.baseURL + this.updateUserDetailsURL, userDetails);
-  }
-  updateItem(item: CartItem) {
     try {
-      return this.http.put<CartItem>(
-        'http://localhost:3000/cart/' + item.id,
-        item
-      );
-    } catch (error: any) {
-      return throwError(() => new Error(error));
+      return this.http.put(this.baseURL + this.updateUserDetailsURL, userDetails);
+    } catch (error) {
+      return throwError(() => new Error(error))
     }
   }
-  deleteProduct(product: CartItem) {
-    return this.http.delete<CartItem>(
-      'http://localhost:3000/cart/' + product.id
-    );
-  }
-  // emptyCart(cartItems:any){
-  //   console.log("empty cart")
-  //   const empty:any = []
-  //  return this.http.put('http://localhost:3000/cart/',empty)
-  // }
+  
   addAddress(formValues: any) {
-    return this.http.post(this.baseURL + this.addAddressURL, formValues);
+    try {
+      return this.http.post(this.baseURL + this.addAddressURL, formValues);
+    } catch (error) {
+      return throwError(()=>throwError(error))
+    }
   }
   deleteAddress(encryptedId: any) {
-    return this.http.delete(this.baseURL + this.deleteAddressURL, {
-      headers: new HttpHeaders({
-        'ngrok-skip-browser-warning': 'skip-browser-warning',
-        'Access-Control-Allow-Origin': '*',
-        address_id: encryptedId,
-      }),
-    });
+    try {
+      return this.http.delete(this.baseURL + this.deleteAddressURL, {
+        headers: new HttpHeaders({
+          'ngrok-skip-browser-warning': 'skip-browser-warning',
+          'Access-Control-Allow-Origin': '*',
+          address_id: encryptedId,
+        }),
+      });
+      
+    } catch (error) {
+      return throwError(()=>new Error(error));
+    }
   }
   updateAddress(id: any, body: any) {
     let encryptedId;
@@ -173,12 +137,17 @@ userId:any
     });
   }
   getCategoriesFromAPI() {
-    return this.http.get(this.baseURL + this.categoriesURL, {
-      headers: new HttpHeaders({
-        'ngrok-skip-browser-warning': 'skip-browser-warning',
-        'Access-Control-Allow-Origin': '*',
-      }),
-    });
+    try {
+      return this.http.get(this.baseURL + this.categoriesURL, {
+        headers: new HttpHeaders({
+          'ngrok-skip-browser-warning': 'skip-browser-warning',
+          'Access-Control-Allow-Origin': '*',
+        }),
+      });
+      
+    } catch (error) {
+      return throwError(()=>new Error(error));
+    }
   }
 
   getProductByCategoryId(categoryId: number): Observable<any> {
@@ -240,14 +209,18 @@ userId:any
       );
     });
   }
-  getAllProducts(){
+  getAllProducts() {
     let allProductsURL = environment.getAllProductsURL
-    return this.http.get(this.baseURL + allProductsURL,{
-      headers: new HttpHeaders({
-        'ngrok-skip-browser-warning': 'skip-browser-warning',
-        'Access-Control-Allow-Origin': '*',
-      }),
-    })
+    try {
+      return this.http.get(this.baseURL + allProductsURL, {
+        headers: new HttpHeaders({
+          'ngrok-skip-browser-warning': 'skip-browser-warning',
+          'Access-Control-Allow-Origin': '*',
+        }),
+      })
+    } catch (error) {
+      return throwError(()=>new Error(error))
+    }
   }
 
   addOrder(
@@ -263,39 +236,54 @@ userId:any
       payment_status: paymentStatus,
       order_status: orderStatus,
     });
-    return this.http.post(this.baseURL + this.addOrderURL, body, { headers });
+    try {
+      return this.http.post(this.baseURL + this.addOrderURL, body, { headers });
+    } catch (error) {
+      return throwError(()=>new Error(error));
+    }
   }
   getOrders() {
-    return this.http.get(this.baseURL + this.getOrdersURL, {
-      headers: new HttpHeaders({
-        'ngrok-skip-browser-warning': 'skip-browser-warning',
-        'Access-Control-Allow-Origin': '*',
-      }),
-    });
+    try {
+      return this.http.get(this.baseURL + this.getOrdersURL, {
+        headers: new HttpHeaders({
+          'ngrok-skip-browser-warning': 'skip-browser-warning',
+          'Access-Control-Allow-Origin': '*',
+        }),
+      });
+    } catch (error) {
+      return throwError(()=>new Error(error))
+    }
   }
   encryption(data: any) {
-    console.log('daata', data);
-    // const headers = new HttpHeaders({ id: String(data) });
-    return this.http.get(this.baseURL + this.encryptionURL, {
-      headers: new HttpHeaders({
-        'ngrok-skip-browser-warning': 'skip-browser-warning',
-        'Access-Control-Allow-Origin': '*',
-        id: String(data),
-      }),
-    });
+    try {
+      return this.http.get(this.baseURL + this.encryptionURL, {
+        headers: new HttpHeaders({
+          'ngrok-skip-browser-warning': 'skip-browser-warning',
+          'Access-Control-Allow-Origin': '*',
+          id: String(data),
+        }),
+      });
+    } catch (error) {
+      return throwError(()=>new Error(error))
+    }
   }
   getOrderDetailById(encryptedId: any) {
-    return this.http.get(this.baseURL + this.getOrderDetailByIdURL, {
-      headers: new HttpHeaders({
-        'ngrok-skip-browser-warning': 'skip-browser-warning',
-        'Access-Control-Allow-Origin': '*',
-        order_id: encryptedId,
-      }),
-    });
+    try {
+      return this.http.get(this.baseURL + this.getOrderDetailByIdURL, {
+        headers: new HttpHeaders({
+          'ngrok-skip-browser-warning': 'skip-browser-warning',
+          'Access-Control-Allow-Origin': '*',
+          order_id: encryptedId,
+        }),
+      });
+      
+    } catch (error) {
+      return throwError(()=>new Error(error))
+    }
   }
 
 
-  logout(){
-    this.userId=null;
+  logout() {
+    this.userId = null;
   }
 }

@@ -11,7 +11,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ManageAddressFormComponent } from './manage-address-form/manage-address-form.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { ToastModule } from 'primeng/toast';
-
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,8 @@ import { ToastModule } from 'primeng/toast';
     UserProfileRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxSpinnerModule,ToastModule
+    NgxSpinnerModule,ToastModule,
+    ConfirmDialogModule
   ],
 })
 export class UserProfileModule { }

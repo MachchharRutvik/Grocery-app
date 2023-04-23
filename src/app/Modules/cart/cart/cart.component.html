@@ -61,9 +61,10 @@
 </div> -->
 <div class="container ">
     <ngx-spinner type="ball-clip-rotate-multiple">
-        <img src="../assets/cart-spinner.gif " alt="" srcset="" width="100px" height="100px">
-      </ngx-spinner>
-    <ng-container *ngIf="!isEmpty">
+        <img src="../../../../assets/cart-spinner.gif " alt="" srcset="" width="100px" height="100px">
+
+    </ngx-spinner>
+    <ng-container *ngIf="cartItems.length>0">
 
 
         <table class="table ">
@@ -107,13 +108,13 @@
                         <td>
                             <div>
                                 <span class="border rounded"><i class="fa fa-light fa-minus p-2"
-                                        (click)="itemMinus(product)"></i></span><span
-                                    class="">{{product.quantityCount}}</span>
+                                        (click)="itemMinus(product)"></i></span><span class="">{{product.quantityCount
+                                    || 1}}</span>
                                 <span class="border rounded"><i class="fa fa-light fa-plus p-2"
                                         (click)="itemPlus(product)"></i></span>
                             </div>
                         </td>
-                        <td>{{product.subtotal | currency}}</td>
+                        <td>{{product.subTotal | currency}}</td>
                         <td><button (click)="cancel(product)"><i class="fa fa-solid fa-xmark"></i></button></td>
                     </tr>
                 </ng-container>
@@ -125,7 +126,7 @@
         </div>
         <button (click)="checkout()">checkout</button>
     </ng-container>
-    <div class="container text-center" *ngIf="isEmpty">
+    <div class="container text-center" *ngIf="cartItems.length==0">
         <h1>Cart is Empty</h1>
     </div>
 </div>

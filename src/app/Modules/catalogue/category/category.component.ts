@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { error } from 'console';
 
 @Component({
   selector: 'app-category',
@@ -19,13 +20,11 @@ import { MessageService } from 'primeng/api';
 })
 export class CategoryComponent implements OnInit {
   products: any 
-
   groceryCategorySlug: string | undefined;
   stores: String[] = [];
   searchWord: string | undefined;
   checkedStores: string[] = [];
   isNull = false;
-
   constructor(
     private productService: ProductsService,
     private route: ActivatedRoute,
@@ -37,7 +36,6 @@ export class CategoryComponent implements OnInit {
   }
   ngOnInit(): void {
     window.scrollTo(0, 0);
-  //  console.log(this.toastr,"toastr")
   this.spinner.show();
   setTimeout(() => {
     this.spinner.hide();
@@ -56,7 +54,9 @@ export class CategoryComponent implements OnInit {
             this.api.getProductByCategoryId(categoryId).subscribe((product) => {
               const products = product.data;
               this.products = products.map((product:any)=>product.product)
-              console.log('this.products', this.products);
+              console.log('RutvikMachchhar', this.products);
+            },(error)=>{
+              console.log('RutvikMachchhar', error);
             });
           }
         });
@@ -80,15 +80,6 @@ export class CategoryComponent implements OnInit {
     });
   
   }
-  // getSearchCategoryData(category: string, word: string) {
-  //   this.products = this.productService.getProductsBySearchAndCategory(
-  //     category,
-  //     word
-  //   );
-  //   const duplicateStores = this.productService.getProductsByStores(category);
-  //   this.stores = this.products.map((product: { store: any }) => product.store);
-  // }
-
   onChecked(event: any) {
     const store: string = event.target.value;
     if (event.target.checked) {
@@ -122,74 +113,13 @@ export class CategoryComponent implements OnInit {
     this.isClicked = !this.isClicked;
   }
 
-
-  //   addToCart(product: any) {
-  //     this.http.get('http://localhost:3000/cart/').subscribe((res) => {
-  //       let cart:any = res
-  //       // console.log(product,"prodyuctr")
-  //      console.log(res,"getcart");
-  //      let userMatchedCart = cart.filter((res:any)=>res.userId ==this.api.userId)
-  //      console.log(userMatchedCart,"hasuserid")
-  //      let cartId = userMatchedCart[0].id
-  //      console.log(cartId,"cartId")
-  //     const cartProduct = {
-  //       id:product.product.id,
-  //       title:product.product.title,
-  //       amount:product.product.amount,
-  //       quantityCount:1,
-  //       subtotal:product.product.amount
-  //     }
-  //     console.log("cartarray",this.cartArray)
-  //     this.cartArray.push(cartProduct) 
-  //     let userCart = {
-  //       userId :this.api.userId,
-  //       cart:this.cartArray
-  //     }
-  //     console.log("cartarray",this.cartArray)
-
-  //     console.log("uawwercart",userCart)
-  //     // this.cartService.addToCart(cartProduct);
-  //     this.http.put('http://localhost:3000/cart/'+cartId,userCart).subscribe(res=>console.log(res,"cart data updated"),err=>console.log(err,"cart data error"))
-  //     console.log(product.product,"thisproduct")
-  //     // console.log(this.cartService.getCartItems(),"add to cart");
-  //   })
-  // }
-
   addToCart(product: any) {
-    this.cartService.addToCart(product)
-    this.cartService.getCartTotal()
+    let username=JSON.parse(localStorage.getItem("userName"))
+    console.log("username",username)
+    this.cartService.ADD_Cart_User_Wise(username,product,product.id)
+    this.cartService.Get_Total(username)
     this.show();
     
-
-    // this.http.get('http://localhost:3000/cart/').subscribe((res) => {
-    //   let cart: any = res;
-    //   let userMatchedCart = cart.filter((res: any) => res.userId == this.api.userId);
-    //   let cartId = userMatchedCart[0].id;
-    //   let cartArray = userMatchedCart[0].cart;
-    //   let existingProductIndex = cartArray.findIndex((item: any) => item.id === product.product.id);
-    //   if (existingProductIndex !== -1) {
-    //     cartArray[existingProductIndex].quantityCount += 1;
-    //     cartArray[existingProductIndex].subtotal += product.product.amount;
-    //   } else {
-    //     const cartProduct = {
-    //       id: product.product.id,
-    //       title: product.product.title,
-    //       amount: product.product.amount,
-    //       quantityCount: 1,
-    //       subtotal: product.product.amount,
-    //     };
-    //     cartArray.push(cartProduct);
-    //   }
-    //   let userCart = {
-    //     userId: this.api.userId,
-    //     cart: cartArray,
-    //   };
-
-    //   this.http.put('http://localhost:3000/cart/' + cartId, userCart).subscribe(
-    //     (res) => console.log(res, 'cart data updated'),
-    //     (err) => console.log(err, 'cart data error')
-    //   );
-    // });
   }
 
   productDetails(product: any) {

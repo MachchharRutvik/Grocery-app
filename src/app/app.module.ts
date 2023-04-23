@@ -25,6 +25,8 @@ import { FeaturesComponent } from './Shared/Components/features/features.compone
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 
 
 @NgModule({
@@ -39,7 +41,7 @@ import { ToastModule } from 'primeng/toast';
     AppRoutingModule, CommonModule, FormsModule,
     HttpClientModule, ReactiveFormsModule,
     NgxSpinnerModule,
-    BrowserAnimationsModule,ToastModule
+    BrowserAnimationsModule,ToastModule,ConfirmDialogModule
   
    
 

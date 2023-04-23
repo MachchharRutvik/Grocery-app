@@ -68,6 +68,7 @@ swiper-slide {
   flex-direction: column;
   margin: 20px 0px;
   border-radius: 0;
+  height: 22rem;
 }
 .price{
   text-decoration: line-through;

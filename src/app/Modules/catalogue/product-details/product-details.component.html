@@ -96,13 +96,13 @@
 
     </div>
 </div> -->
-
+<p-toast></p-toast>
 <div class="container"  *ngIf="product">
-    <div class="container d-md-flex">
-        <div class="image">
-            <img src={{product_img}} alt="" width="500px" height="500px">
+    <div class="container row">
+        <div class="image col-5">
+            <img src="../../../../assets/Dove shampoo.webp" alt="" width="500px" height="500px">
         </div>
-        <div class="product-name">
+        <div class="product-name col-5">
             <div class="row">{{product.title}}</div>
             <div class="row">{{product.short_description}}</div>
             <div class="row text-decoration-line-through">MRP:{{product.amount}}</div>

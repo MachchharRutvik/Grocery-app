@@ -1,4 +1,7 @@
-<p-toast></p-toast>
+
+  <p-toast></p-toast>
+  <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+
 <div class="container-fluid">
     <div class="container mt-5">
       <div class="d-flex flex-wrap justify-content-start align-items-center">
@@ -15,7 +18,7 @@
               {{address.landmark}},{{address.city}},{{address.state}},{{address.country}}{{-address.postal_code}},
             </p>
             <a href="" class="btn border">Deliver here</a>
-            <i class="fas fa-regular fa-trash border mx-5 " role="button" (click)="deleteAddress(address)"></i>
+            <i class="fas fa-regular fa-trash border mx-5 " role="button" (click)="confirm2(address)"></i>
             <i class="fa fa-light fa-pen border " role="button" (click)="updateAddress(address)"></i>
           </div>
         </div>

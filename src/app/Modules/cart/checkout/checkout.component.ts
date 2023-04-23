@@ -31,27 +31,52 @@ export class CheckoutComponent implements OnInit {
     this.api.getUserDetails().subscribe((res) => {
       this.userAddresses = res.data.addresses;
     });
-    this.api.getCartData().subscribe((res) => {
-      let cart: any = res;
-      let userMatchedCart = cart.filter((res: any) => res.userId == this.api.userId);
-      // let cartId = userMatchedCart[0].id;
-      let cartArray = userMatchedCart[0].cart
-      console.log(res,"checkout");
-      console.log(cartArray,"cartArray");
-      cartArray.map((res: any) => {
-        this.product = {
-          product_id: cartArray[0].id,
-          product_name: cartArray[0].title,
-          qty: cartArray[0].quantityCount,
-          product_amount: cartArray[0].amount,
-          discount_type: 2,
-          discount_amount: 1,
-        };
-        this.cartData.push(this.product);
-        console.log(this.cartData, 'this.cartdaratara');
-      });
+    let cart = JSON.parse(localStorage.getItem('Cart'))
+    
+    let userName = JSON.parse(localStorage.getItem('userName'))
+    if(cart && userName){
+      let userCart = cart.find((user)=>user.username==userName)
+      if(userCart){
+        console.log(userCart,"usercart")
+        console.log(userName,"username")
+        console.log(cart,"cart")
+        userCart.items.map((cartItems:any)=>{
+          let cartProductObj = {
+            product_id: cartItems.id,
+             product_name: cartItems.title,
+             qty: cartItems.quantityCount,
+             product_amount: cartItems.amount,
+             discount_type: 2,
+             discount_amount: 10
+         }
+         this.cartData.push(cartProductObj)
+        })
+       console.log(this.cartData,"thiscartatadtaduy")
+      
+      }
 
-    });
+    }
+    // this.api.getCartData().subscribe((res) => {
+    //   let cart: any = res;
+    //   let userMatchedCart = cart.filter((res: any) => res.userId == this.api.userId);
+    //   // let cartId = userMatchedCart[0].id;
+    //   let cartArray = userMatchedCart[0].cart
+    //   console.log(res,"checkout");
+    //   console.log(cartArray,"cartArray");
+    //   cartArray.map((res: any) => {
+    //     this.product = {
+    //       product_id: cartArray[0].id,
+    //       product_name: cartArray[0].title,
+    //       qty: cartArray[0].quantityCount,
+    //       product_amount: cartArray[0].amount,
+    //       discount_type: 2,
+    //       discount_amount: 1,
+    //     };
+    //     this.cartData.push(this.product);
+    //     console.log(this.cartData, 'this.cartdaratara');
+    //   });
+
+    // });
     this.spinner.show();
     setTimeout(() => {
       this.spinner.hide();
@@ -71,9 +96,10 @@ export class CheckoutComponent implements OnInit {
     });
   }
   placeOrder() {
+  
     if (this.delivery_address_id && this.billing_address_id) {
       this.cartService.cartSubTotal.subscribe((res) => {
-        this.grandTotal = res;
+        this.grandTotal = res;});
         this.orderObj = {
           order_date: this.date(),
           special_note: 'Special note',
@@ -88,9 +114,6 @@ export class CheckoutComponent implements OnInit {
           payment_type: 2,
           order_products: this.cartData,
         };
-        console.log(this.orderObj, 'this.orderobj');
-       
-      });
       this.api
       .addOrder(
         this.orderObj,
@@ -102,13 +125,22 @@ export class CheckoutComponent implements OnInit {
       .subscribe(
         (res) => {
           console.log('response', res);
+          if(confirm("are you sure you want to place order?")){
+            let userName = JSON.parse(localStorage.getItem('userName'))
+            if(userName){
+            this.cartService.Delete_User_Cart_LocalStorage(userName)
+            this.router.navigate(['/cart/myCart/checkout/order-placed']);
+      
+            }
+    
+          }
+    
         },
         (err) => {
           console.log('errr', err);
         }
       );
-      alert("are you sure you want to place order?")
-    this.router.navigate(['/cart/myCart/checkout/order-placed']);
+     
     } else {
       alert('please select delivery address');
     }

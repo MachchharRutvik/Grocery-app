@@ -1,27 +1,25 @@
+<p-toast></p-toast>
 <div class="container headings">
     <div>
         <h4>Featured Products</h4>
     </div>
-    <div>
-        <a [routerLink]="['./catalogue/categories/',items]" *ngFor="let items of categoriesName">{{items}}</a>
-    </div>
+   
 </div>
 <div class="swiper-container" style="overflow: hidden;">
     <div class="swiper-wrapper">
         <div class="swiper-slide" *ngFor="let product of products">
             <div class="card" >
                 <a [routerLink]="['catalogue/product-details/',product.category,product.grocery_name,product.id] ">
-                <img src="{{product.imageUrl}}" class="card-img-top image" alt="">
+                <img src="../../../../assets/apple.jpg" class="card-img-top image" alt="">
             </a>
                 <div class="card-body">
-                    <span class="card-text category">{{product.category}}</span>
-                    <h4>{{product.grocery_name}}</h4>
+                    <h4>{{product.title}}</h4>
                     <span>☆☆☆☆☆(4)</span>
-                    <span class="card-text storeName">By {{product.store}}</span>
+                    <span class="card-text storeName"> {{product.short_description}}</span>
                 
                     <div>
-                        <span class="discountPrice card-text">{{product.discountPrice | currency}}</span>
-                        <span class="price card-text">{{product.price | currency}}</span>
+                        <span class="discountPrice card-text">{{product.amount | currency:'INR'}}</span>
+                        <span class="price card-text">{{product.amount | currency:'INR'}}</span>
     
                         <button class="btn addToCart" (click)="addToCart(product)"><i class="fa fa-shopping-cart "></i>Add</button>
                     </div>

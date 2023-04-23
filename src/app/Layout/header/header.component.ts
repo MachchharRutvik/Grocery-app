@@ -1,10 +1,9 @@
 import {
   Component,
-  DoCheck,
   OnInit,
 } from '@angular/core';
 import { ProductsService } from '../../Shared/Services/products/products.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from '../../Shared/Services/cart/cart.service';
 import { ApiService } from 'src/app/Shared/Services/api/api.service';
 import { HttpClient } from '@angular/common/http';
@@ -18,64 +17,64 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./header.component.css'],
   providers:[MessageService]
 })
-export class HeaderComponent implements OnInit, DoCheck {
+export class HeaderComponent implements OnInit {
   constructor(
     private service: ProductsService,
     private router: Router,
+    private route:ActivatedRoute,
     private cartService: CartService,
     private api: ApiService,
     private http: HttpClient,
-    private messageService:MessageService
+    private messageService:MessageService,
+   
   ) {
-
-  }
-  ngDoCheck(): void {
-
-  }
-
-  ngOnInit() {
-    this.api.getCategoriesFromAPI().subscribe(res => console.log(res))
-    this.http.get('http://localhost:3000/cart/').subscribe((res) => {
-      let cart: any = res;
-      if (cart) {
-        let userMatchedCart = cart.filter((res: any) => res.userId == this.api.userId);
-        if (userMatchedCart) {
-          let cartArray = userMatchedCart[0]?.cart
-          this.cartService.cartDataSubject.next(cartArray)
+    this.router.events.subscribe((res:any)=>{
+      if(res.url){
+        if(localStorage.getItem('token')){
+          this.token = true
         }
       }
     })
-    this.cartService.cartDataSubject$.subscribe((res) => {
-      this.cartProducts = res?.values;
-      console.log(res, 'cartproduct');
-      this.itemCount = res.length;
-      console.log(this.itemCount, 'cartproduct');
-      this.cartService.getCartTotal();
-    });
-    this.cartTotal = this.cartService.getCartTotal()
-    console.log(this.cartTotal, "thiscarttotal")
-    console.log(this.cartService.getCartTotal())
+  }
+ 
 
-    this.cartService.cartSubTotal.next(this.cartTotal)
-    this.cartService.cartSubTotal.subscribe((res) => (this.cartTotal = res));
-    this.router.events.subscribe((res: any) => {
+  ngOnInit() {
    
-      const token = localStorage.getItem('token');
-      if (token) {
-        this.token = true;
-        this.api.getUserDetails().subscribe((res) => {
-          this.userDetails = res.data;
-        })
-      } else {
-        this.token = false;
-      }
-    });
+    let username=JSON.parse(localStorage.getItem("userName"))
+    if(username){
+      this.userDetails = username
+      this.cartService.Get_Total(username)
+      this.cartService.User_Add_Cart(username)
+      this.api.getCategoriesFromAPI().subscribe(res => console.log(res))
+      this.cartService.cartDataSubject$.subscribe((res) => {
+        if(res){
+          console.log(res, 'cartproduct');
+          this.cartProducts = res?.values;
+          this.itemCount = res.length;
+          console.log(this.itemCount, 'cartproduct');
+          // this.cartService.getCartTotal();
+  
+        }
+      });
+    }
+    // this.cartTotal = this.cartService.getCartTotal()
+    // console.log(this.cartTotal, "thiscarttotal")
+    // console.log(this.cartService.getCartTotal())
+
+    // this.cartService.cartSubTotal.next(this.cartTotal)
+    this.cartTotal = this.cartService.headerItemsTotal
+    this.cartService.cartSubTotal.subscribe((res) => (this.cartTotal = res));
+    // this.itemCount = this.cartService.headerItemsCount
+    this.cartService.itemCount.subscribe((res)=>(this.itemCount = res))
+    
     this.api.getCategoriesFromAPI().subscribe((res: any) => {
       this.categories = res.data
     })
 
   }
+ 
   token = false;
+  
   cartTotal = 0;
   itemCount!: number;
   cartProducts: any;
@@ -92,25 +91,16 @@ export class HeaderComponent implements OnInit, DoCheck {
     }
   }
 
-  // onSelectCategory(event: any) {
-  //   this.category = event.target.value;
-  //   // console.log(this.category);
-  //   // if(this.category){
-  //   //   this.router.navigate(['categories',this.category]);
-  //   // }
-  // }
   logout() {
     localStorage.removeItem('token');
-    this.api.logout();
-    const cart: never[] = []
-    this.cartService.logoutCart.next(cart);
-    this.cartService.cartSubTotal.next(0);
-    this.userDetails = ''
+    localStorage.removeItem('userName');
+    localStorage.removeItem('customerId');
+    console.log("removed token");
+    this.token = false
     this.router.navigate(['/']);
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Logout successful' });
-    window.location.reload();
+    
   }
-  allCategories() {
+    allCategories() {
     this.router.navigate(['catalogue/all-categories'])
   }
 }

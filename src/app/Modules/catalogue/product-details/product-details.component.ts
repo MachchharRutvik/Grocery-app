@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { ApiService } from 'src/app/Shared/Services/api/api.service';
 import { CartService } from 'src/app/Shared/Services/cart/cart.service';
 import { ProductsService } from 'src/app/Shared/Services/products/products.service';
@@ -8,6 +9,7 @@ import { ProductsService } from 'src/app/Shared/Services/products/products.servi
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css'],
+  providers:[MessageService]
 })
 export class ProductDetailsComponent implements OnInit {
   product_slug:any
@@ -21,7 +23,8 @@ export class ProductDetailsComponent implements OnInit {
   product_discount_price!:number;
   constructor(
     private route: ActivatedRoute,
-    private service: ProductsService,private cartService:CartService,private api:ApiService
+    private service: ProductsService,private cartService:CartService,private api:ApiService,
+    private messageService:MessageService
   ) {}
 
   ngOnInit(): void {
@@ -30,18 +33,17 @@ export class ProductDetailsComponent implements OnInit {
       this.product_id = Number(res['id']);
       this.product_category = res['product_category'];
       this.product_slug = res['slug']
-
+      console.log("product details",this.product_id)
     });
-
-     this.api.getProductById(this.product_id).subscribe((product:any)=>{
-      this.product = product.data
-      this.product.quantity = 1
-      console.log(product.data);
-      
-     },(err)=>{
-      console.log(err,"err");
-      
-     })
+    if(this.product_id){
+      this.api.getProductById(this.product_id).subscribe((product:any)=>{
+       this.product = product.data
+       this.product.quantity = 1
+       console.log(product.data);
+      },(err)=>{
+       console.log(err,"err");
+      })
+    }
     // this.product = this.service.getProductById(this.product_id);
     // console.log(this.product);
     // this.product_price = this.product.price
@@ -61,8 +63,15 @@ export class ProductDetailsComponent implements OnInit {
 
   // }
   addToCart(product: any){
-    this.cartService.addToCart(product);
-  // this.cartService.cartBehaviour.next(this.cartService.getCartItems());
-    // this.cartService.cartGrandTotal.next(this.product_discount_price)
+    let username=JSON.parse(localStorage.getItem("userName"))
+    console.log("username",username)
+    this.cartService.ADD_Cart_User_Wise(username,product,product.id)
+    this.cartService.Get_Total(username)
+    this.show();
+    
   }
+  show() {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Item added Successfully' });
+}
+
 }

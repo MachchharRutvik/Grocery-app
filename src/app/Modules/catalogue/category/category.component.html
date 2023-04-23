@@ -22,16 +22,16 @@
         <ng-container *ngIf="products && products.length>0">
         <div class="card " *ngFor="let product of products" >
             <div (click)="productDetails(product)">  
-            <img src="{{product.imageUrl}}" class="card-img-top image" alt="category-1">
+            <img src="../../../../assets/Almonds.jpg" class="card-img-top image" alt="category-1">
             </div>
             <div class="card-body">
                 <!-- <span class="card-text category">{{product.category_id}}</span> -->
                 <h4>{{product.title}}</h4>
                 <span>☆☆☆☆☆(4)</span>
-                <span class="card-text storeName">By {{product.short_description}}</span>
+                <span class="card-text storeName">{{product.short_description}}</span>
                 <div>
-                    <span class="discountPrice card-text">{{product.amount | currency}}</span>
-                    <span class="price card-text">{{product.amount | currency}}</span>
+                    <span class="discountPrice card-text">{{product.amount | currency:'INR'}}</span>
+                    <span class="price card-text">{{product.amount | currency:'INR'}}</span>
                     <button class="btn  addToCart" (click)="addToCart(product)"><i class="fa fa-shopping-cart "></i>Add</button>
                 </div>
             </div>

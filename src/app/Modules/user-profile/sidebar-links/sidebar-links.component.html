@@ -1,17 +1,19 @@
 <ul>
-    <a routerLink="profile">
+    <a routerLink="profile" style="cursor:pointer ">
         <li>Profile</li>
     </a>
-    <a routerLink="orders">
+    <a routerLink="orders" style="cursor:pointer ">
         <li>Orders</li>
     </a>
-    <a routerLink="manage-addresses">
+    <a routerLink="manage-addresses" style="cursor:pointer ">
         <li>Manage Addresses</li>
     </a>
-    <a routerLink="change-password">
+    <a routerLink="change-password" style="cursor:pointer ">
         <li>Change Password</li>
     </a>
     <a>
         <li (click)="logout()" style="cursor:pointer ">Logout</li>
     </a>
 </ul>
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

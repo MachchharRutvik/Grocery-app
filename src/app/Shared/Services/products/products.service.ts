@@ -12,9 +12,13 @@ export class ProductsService {
   constructor(private http:HttpClient,private api:ApiService) { 
   
   }
-  categoriesName=[
-    "All","Vegetables","Fruits","Coffee & teas","Meat"
+  productImages = [
+    {
+      title:"Apples",
+      imageURL:"../assets/apple.jpg"
+    }
   ]
+  
   getProductsByCategoryId(id:number){
     
 

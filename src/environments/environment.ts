@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseURL:"https://1f85-117-217-127-105.ngrok-free.app/api/v1",
+  baseURL:"http://localhost:8080/api/v1",
   // baseURL:"https://e099-117-217-127-105.in.ngrok.io/api/v1",
   registerURL:"/customer/register",
   loginURL:"/customer/login",

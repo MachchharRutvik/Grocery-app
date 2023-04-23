@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { ApiService } from 'src/app/Shared/Services/api/api.service';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
+  providers:[MessageService]
 })
 export class SignupComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private route: Router,
-    private fb: FormBuilder
-  ) {}
-  signUpForm!: FormGroup;
-  formValues: any;
-  ngOnInit(): void {
+    private fb: FormBuilder,
+    private messageService:MessageService
+  ) {
     this.signUpForm = this.fb.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
@@ -31,6 +31,11 @@ export class SignupComponent implements OnInit {
     this.formValues = this.signUpForm.getRawValue();
     console.log(this.formValues);
     console.log(this.first_name);
+  }
+  signUpForm!: FormGroup;
+  formValues: any;
+  ngOnInit(): void {
+   
   }
   get first_name() {
     return this.signUpForm.get('first_name');
@@ -52,6 +57,24 @@ export class SignupComponent implements OnInit {
   }
   signUp() {
     const userDetails = this.signUpForm.getRawValue();
-    this.apiService.signUpApi(userDetails)
+    this.apiService.signUpApi(userDetails).subscribe(
+      (data: any) => {
+        localStorage.setItem('customerId', data.data.id);
+        this.showSuccess(data.message);
+        setTimeout(()=>{
+          this.route.navigate(['login']);
+
+        },1000)
+      },
+      (error) => {
+        console.log(error)
+        this.showError(error.error.message)}
+    );
+  }
+  showSuccess(message){
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
+  }
+  showError(message){
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
   }
 }
